@@ -3,7 +3,7 @@ import cors from "cors";
 import { graphqlHTTP } from "express-graphql";
 import { createConnection } from "typeorm";
 import schema from "./schema";
-import { Users } from "./entities";
+import { Shows, Users } from "./entities";
 import * as dotenv from "dotenv";
 
 (async () => {
@@ -18,7 +18,7 @@ import * as dotenv from "dotenv";
     password: process.env.DB_PASSWORD,
     logging: true,
     synchronize: true,
-    entities: [Users],
+    entities: [Users, Shows],
   });
   const app = express();
   app.use(cors());
