@@ -4,9 +4,11 @@ const UserType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString },
+    fullName: { type: GraphQLString },
     userName: { type: GraphQLString },
+    email: { type: GraphQLString },
     password: { type: GraphQLString },
+    birthday: { type: GraphQLString },
   }),
 });
 
