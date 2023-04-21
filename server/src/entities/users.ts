@@ -6,11 +6,17 @@ export default class Users extends BaseEntity {
   id!: number;
 
   @Column()
-  name!: string;
+  fullName!: string;
 
   @Column()
   userName!: string;
 
   @Column()
+  email!: string;
+
+  @Column()
   password!: string;
+
+  @Column()
+  birthday!: string;
 }
