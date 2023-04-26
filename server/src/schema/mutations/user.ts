@@ -2,6 +2,8 @@ import { GraphQLID, GraphQLString } from "graphql";
 import UserType from "../typedefs/user";
 import { Users } from "../../entities";
 import { RequestStatus } from "../typedefs/requestStatus";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const CREATE_USER = {
   type: UserType,
@@ -13,19 +15,47 @@ export const CREATE_USER = {
     birthday: { type: GraphQLString },
   },
   async resolve(parent: any, args: any) {
-    try {
-      let { fullName, userName, email, password, birthday } = args;
-      await Users.insert({
-        fullName,
-        userName,
-        email,
-        password,
-        birthday,
-      });
-      return args;
-    } catch (err) {
-      console.log("ERROR : ", err);
+    let { fullName, userName, email, password, birthday } = args;
+
+    const hashed_password = await bcrypt.hash(password, 10);
+    await Users.insert({
+      fullName,
+      userName,
+      email,
+      password: hashed_password,
+      birthday,
+    });
+    return args;
+  },
+};
+
+export const LOGIN = {
+  type: GraphQLString,
+  args: {
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
+  },
+  async resolve(parent: any, args: any) {
+    const { email, password } = args;
+    const user = await Users.findOne({ where: { email: email } });
+
+    if (!user) {
+      throw new Error("User doesn't exist");
     }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) throw new Error("Wrong password !");
+
+    return jwt.sign(
+      {
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        username: user.userName,
+      },
+      "jwtsecretKey",
+      { expiresIn: "1d" }
+    );
   },
 };
 
@@ -35,12 +65,8 @@ export const DELETE_USER = {
     id: { type: GraphQLID },
   },
   async resolve(parent: any, args: any) {
-    try {
-      const { id } = args;
-      await Users.delete(id);
-    } catch (err) {
-      console.log("ERROR : ", err);
-    }
+    const { id } = args;
+    await Users.delete(id);
   },
 };
 
@@ -52,19 +78,17 @@ export const UPDATE_USER_PASSWORD = {
     newPassword: { type: GraphQLString },
   },
   async resolve(parent: any, args: any) {
-    try {
-      const { userName, oldPassword, newPassword } = args;
+    const { userName, oldPassword, newPassword } = args;
 
-      const user = await Users.findOne({ where: { userName: userName } });
-      const userPassword = user?.password;
-      if (oldPassword === userPassword) {
-        return await Users.update({ userName }, { password: newPassword });
-      } else {
-        throw new Error("Password doesn't match");
-      }
-    } catch (err) {
-      // console.log("ERROR : ", err);
-      throw new Error(`ERROR : ${err}`);
+    const user = await Users.findOne({ where: { userName: userName } });
+    if (!user) throw new Error("USER DOESN'T EXIST !");
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    if (passwordMatch) {
+      return await Users.update({ userName }, { password: hashedNewPassword });
+    } else {
+      throw new Error("Password doesn't match");
     }
   },
 };
@@ -81,44 +105,45 @@ export const UPDATE_USER = {
     birthday: { type: GraphQLString },
   },
   async resolve(parent: any, args: any) {
-    try {
-      const {
-        id,
-        userName,
-        fullName,
-        email,
-        oldPassword,
-        newPassword,
-        birthday,
-      } = args;
+    const {
+      id,
+      userName,
+      fullName,
+      email,
+      oldPassword,
+      newPassword,
+      birthday,
+    } = args;
 
-      const updated_usr: {
-        userName?: string;
-        fullName?: string;
-        email?: string;
-        password?: string;
-        birthday?: string;
-      } = {};
+    const updated_usr: {
+      userName?: string;
+      fullName?: string;
+      email?: string;
+      password?: string;
+      birthday?: string;
+    } = {};
 
-      if (userName) updated_usr.userName = userName;
-      if (fullName) updated_usr.fullName = fullName;
-      if (email) updated_usr.email = email;
-      if (birthday) updated_usr.birthday = birthday;
+    if (userName) updated_usr.userName = userName;
+    if (fullName) updated_usr.fullName = fullName;
+    if (email) updated_usr.email = email;
+    if (birthday) updated_usr.birthday = birthday;
 
-      const user = await Users.findOne({ where: { id: id } });
+    const user = await Users.findOne({ where: { id: id } });
 
-      if (oldPassword && newPassword) {
-        const userPassword = user?.password;
-        if (oldPassword === userPassword) updated_usr.password = newPassword;
-        else throw new Error("Password doesn't match");
-      }
-      if (Object.keys(updated_usr).length)
-        return await Users.update({ id }, updated_usr);
+    if (!user) throw new Error("USER DOESN'T EXIST !");
 
-      throw new Error("No item to update");
-    } catch (err) {
-      throw new Error(`ERROR : ${err}`);
-      // console.log("ERROR: ", err);
+    if (oldPassword && newPassword) {
+      if (oldPassword === newPassword)
+        throw new Error("PLEASE CHOOSE ANOTHER PASSWORD !");
+      const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+
+      if (passwordMatch)
+        updated_usr.password = await bcrypt.hash(newPassword, 10);
+      else throw new Error("Password doesn't match");
     }
+    if (Object.keys(updated_usr).length)
+      return await Users.update({ id }, updated_usr);
+
+    throw new Error("NO ITEM SELECTED !");
   },
 };
