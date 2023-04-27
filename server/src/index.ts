@@ -5,21 +5,12 @@ import { createConnection } from "typeorm";
 import schema from "./schema";
 import { Shows, Users } from "./entities";
 import * as dotenv from "dotenv";
+import connectToDB from "./database/connection";
 
 (async () => {
   dotenv.config({ path: ".env" });
 
-  await createConnection({
-    type: "postgres",
-    database: process.env.DB_NAME,
-    host: process.env.HOST,
-    url: process.env.DB_HOST_URL,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    logging: true,
-    synchronize: true,
-    entities: [Users, Shows],
-  });
+  connectToDB();
   const app = express();
   app.use(cors());
   app.use(express.json());
