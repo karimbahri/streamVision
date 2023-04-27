@@ -53,7 +53,7 @@ export const LOGIN = {
         email: user.email,
         username: user.userName,
       },
-      "jwtsecretKey",
+      process.env.ACCESS_TOKEN_SECRET || "secret_key",
       { expiresIn: "1d" }
     );
   },
