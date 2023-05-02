@@ -1,0 +1,671 @@
+/* =====
+IMPORTS
+===== */
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+
+/* =====
+VARIABLES
+===== */
+
+$bg-color-1: #1e1f2c;
+$bg-color-2: #22242c;
+$bg-color-3: #2d2e39;
+$bg-color-4: #2d2e39;
+
+/* =====
+HTML, BODY
+===== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--bg-color-1);
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* =====
+HEADER
+===== */
+
+.header {
+  & {
+    display: flex;
+    position: relative;
+    background-color: var(--bg-color-2);
+  }
+
+  &::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    /* background-color: black; */
+    background-color: var(--bg-color-2);
+    z-index: 2;
+  }
+
+  .header__logo {
+    font-family: "Sofia Sans Extra Condensed", sans-serif;
+    color: white;
+    font-size: 2rem;
+    user-select: none;
+    margin: 0.8rem;
+    z-index: 3;
+  }
+
+  .header__content {
+    & {
+      opacity: 0;
+      top: -390px;
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      background-color: var(--bg-color-2);
+      z-index: 1;
+      padding-top: 3.5rem;
+      transition: 0.4s;
+    }
+
+    .header__search {
+      & {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+      }
+
+      .search__input {
+        background-color: var(--bg-color-3);
+        caret-color: white;
+        outline: none;
+        padding: 1em;
+        border-radius: 25px;
+        border: none;
+        width: 50%;
+        transform: translateX(1rem);
+      }
+
+      .bi-search {
+        /* background-color: #ffce00; */
+        background-color: var(--bg-color-3);
+        font-size: 1.05rem;
+        color: white;
+        top: 25%;
+        right: 0%;
+        z-index: 1;
+        order: 2;
+        padding: 1em 1.3em;
+        transform: translateX(-1.01rem);
+        border-radius: 0 25px 25px 0;
+      }
+    }
+
+    .header__list {
+      & {
+        list-style: none;
+        transform: translateX(-1rem);
+        padding-bottom: 2rem;
+      }
+
+      a {
+        text-decoration: none;
+        display: block;
+        padding: 1rem;
+        font-size: 1.4rem;
+        font-family: "Itim", cursive;
+        font-weight: bold;
+        color: white;
+        transition: 0.3s;
+
+        &:hover {
+          font-size: 1.5rem;
+          color: #009b4d;
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+
+  .navbar__checkbox {
+    & {
+      display: none;
+    }
+
+    &:checked ~ .navbar__toggle > .bar1 {
+      transform: rotate(45deg);
+      height: 3px;
+      width: 42px;
+    }
+
+    &:checked ~ .navbar__toggle > .bar3 {
+      transform: rotate(45deg);
+      height: 3px;
+      background-color: transparent;
+    }
+
+    &:checked ~ .navbar__toggle > .bar2 {
+      transform: rotate(-45deg);
+      height: 3px;
+      background-color: transparent;
+    }
+
+    &:checked ~ .navbar__toggle > .bar4 {
+      transform: rotate(-45deg);
+      height: 3px;
+      width: 42px;
+    }
+
+    &:checked ~ .header__content {
+      top: 37px;
+      opacity: 1;
+      transition: 0.3s;
+    }
+  }
+
+  .navbar__toggle {
+    & {
+      margin: 1rem;
+      margin-left: auto;
+      width: 35px;
+      height: 30px;
+      position: relative;
+      z-index: 3;
+      cursor: pointer;
+    }
+
+    .bar {
+      padding: 0;
+      width: 35px;
+      height: 4px;
+      background-color: white;
+      display: block;
+      border-radius: 4px;
+      transition: all 0.4s ease-in-out;
+      position: absolute;
+    }
+
+    .bar1 {
+      top: 0;
+    }
+
+    .bar2,
+    .bar3 {
+      top: 13.5px;
+    }
+
+    .bar3 {
+      right: 0;
+    }
+
+    .bar4 {
+      bottom: 0;
+    }
+
+    .bar1 {
+      transform-origin: 5%;
+    }
+
+    .bar4 {
+      transform-origin: 5%;
+    }
+  }
+}
+
+/* =====
+MAIN
+===== */
+
+main {
+  & {
+    position: relative;
+    min-height: 100vh;
+    background-color: $bg-color-1;
+  }
+  .main__header {
+    & {
+      padding: 0.5em;
+      display: flex;
+    }
+
+    .user-btn {
+      position: absolute;
+      padding: 0.85em 1.7em;
+      font-family: "Gill Sans", sans-serif;
+      font-weight: bold;
+      background-color: #ffce00;
+      border: none;
+      border-radius: 11px;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #ffcf11e7;
+        font-size: 0.84rem;
+        transition: 0.3s;
+      }
+    }
+  }
+
+  .main__content {
+    /* =====
+    MOVIES SLIDERS
+    ===== */
+    .movies-sliders {
+      & {
+        margin: auto;
+        margin-top: 3rem;
+        height: 250px;
+        width: 85%;
+      }
+
+      .sliders-box {
+        & {
+          width: 100vw;
+          overflow: hidden;
+          white-space: nowrap;
+          display: inline-block;
+          text-align: center;
+          display: flex;
+          align-items: center;
+        }
+
+        .element {
+          & {
+            margin: 0.3rem;
+          }
+
+          .movie-title {
+            font-size: 1.9rem;
+          }
+        }
+      }
+    }
+
+    /* ===== 
+    MOVIES GRID CONTAINER
+    ===== */
+
+    .movies-grid-container {
+      & {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(300px, auto);
+        /* margin-top: 1.5rem; */
+        margin-top: 3rem;
+      }
+
+      .element {
+        & {
+          position: relative;
+          margin: 1.5rem;
+          background-color: var(--bg-color-4);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          transition: 0.3s;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.4);
+          opacity: 0;
+          transition: 0.3s;
+        }
+
+        &:hover {
+          transform: scale(1.04);
+        }
+
+        &:hover::after {
+          opacity: 1;
+        }
+
+        &:hover > .movie-title {
+          display: block;
+          opacity: 1;
+          transition: 0.5s;
+        }
+
+        &:hover > .movie-btn {
+          display: block;
+          opacity: 1;
+        }
+
+        .movie-btn:hover {
+          background-color: #e94b41;
+          /* transition: 0.2s; */
+        }
+
+        .movie-title {
+          font-family: "Bahnschrift SemiBold";
+          text-align: center;
+          margin: 0;
+          padding: 0.6em;
+          font-size: 3rem;
+          color: white;
+          position: absolute;
+          bottom: 0;
+          opacity: 0;
+          transition: 0.5s;
+          z-index: 1;
+        }
+
+        .movie-thumb {
+          width: 100%;
+          aspect-ratio: 16 / 20;
+          object-fit: cover;
+        }
+
+        .movie-btn {
+          position: absolute;
+          bottom: 50%;
+          background-color: #ffb62c;
+          color: white;
+          font-family: "Comic Sans MS";
+          font-size: 1.3rem;
+          width: 80%;
+          padding: 0.5em;
+          border: none;
+          border-radius: 10px;
+          transition: 0.2s;
+          cursor: pointer;
+          opacity: 0;
+          transition: 0.5s;
+          z-index: 1;
+        }
+      }
+    }
+
+    /* =====
+    STREAM PAGE
+    ===== */
+
+    .stream-page {
+      & {
+        margin: 1rem;
+        margin-top: 3rem;
+      }
+
+      .stream-page__header {
+        color: white;
+        font-family: "Bahnschrift SemiBold";
+        text-align: center;
+      }
+
+      .stream-player .media {
+        width: 100%;
+      }
+
+      .episode-list__wrapper {
+        .season-list {
+          margin-top: 1.5rem;
+          padding: 0.5em 2em;
+          font-family: "Bahnschrift SemiBold";
+          font-size: 1rem;
+          background-color: var(--bg-color-3);
+          color: white;
+          outline: none;
+        }
+
+        .episode-list {
+          & {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+          }
+
+          .episode-list__item {
+            width: 95%;
+
+            a {
+              /* font-family: Consolas; */
+              font-family: "Bahnschrift SemiBold";
+              color: white;
+              text-decoration: none;
+              display: flex;
+              justify-content: center;
+              border: solid 1px white;
+              border-radius: 20px;
+              margin: 0.5rem 1rem;
+              padding: 1em;
+              transition: 0.3s;
+
+              &:hover {
+                background-color: white;
+                color: var(--bg-color-1);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /* =====
+    LOGIN PAGE
+    ===== */
+
+    .login {
+      .login__header {
+        font-family: "Bahnschrift SemiBold";
+        color: white;
+        /* font-size: 2.5rem; */
+      }
+
+      .login__form {
+        & {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.3rem;
+        }
+
+        .input-field {
+          /* margin: 0.5rem; */
+          position: relative;
+        }
+
+        input {
+          width: 100%;
+          outline: none;
+          padding: 1em 1em;
+          border: none;
+          background-color: #3b4148;
+          color: white;
+          height: 14.7px;
+          caret-color: white;
+        }
+
+        input::placeholder {
+          color: white;
+        }
+
+        input:-ms-input-placeholder {
+          color: white;
+        }
+
+        input::-ms-input-placeholder {
+          color: white;
+        }
+
+        .login-icon {
+          position: absolute;
+          top: -15.8px;
+          left: -33px;
+          color: white;
+          background-color: #505253;
+          font-size: 1.47rem;
+          margin: 0;
+          padding: 0.55rem;
+          /* padding-top: 0.535rem; */
+          /* height: 23.8px; */
+          transform: translateY(16px);
+        }
+
+        .pass-label {
+          /* padding: 0.58rem; */
+          height: 24.4px;
+          transform: translateY(15.8px);
+        }
+
+        .submit-btn {
+          /* background-color: #e84c88; */
+          background-color: #ffcf11e7;
+          /* font-family: "Bahnschrift"; */
+          font-family: "Trebuchet MS";
+          /* color: black; */
+          border: none;
+          width: 90%;
+          font-size: 1.5rem;
+          /* padding: 0.9rem 1rem; */
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: 0.4s ease-in-out;
+
+          &:hover {
+            background: linear-gradient(60deg, red, yellow);
+            color: white;
+          }
+
+          .reset-pass {
+            color: #74726f;
+            text-decoration: none;
+            transform: translateX(-70px);
+            font-family: "Trebuchet MS";
+          }
+        }
+      }
+
+      .create-account {
+        color: white;
+        font-family: "Trebuchet MS";
+
+        a {
+          text-decoration: none;
+          color: #ffcf11e7;
+        }
+      }
+    }
+
+    /* =====
+    LOGIN PAGE
+    ===== */
+    .reset-page {
+      & {
+        gap: 1.5rem;
+      }
+      .login__form {
+        gap: 4rem;
+      }
+    }
+
+    /* =====
+    SIGNUP PAGE
+    ===== */
+
+    .signup {
+      & {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .signup__header {
+        font-family: "Bahnschrift SemiBold";
+        color: white;
+      }
+
+      .signup__form {
+        & {
+          display: grid;
+          grid-template-columns: 1fr;
+          width: 80%;
+          margin-bottom: 1.5rem;
+        }
+
+        .input-field {
+          & {
+            display: flex;
+            margin: 1rem;
+            flex-direction: column;
+            position: relative;
+          }
+
+          label {
+            color: #74726f;
+            font-family: "Trebuchet MS";
+          }
+
+          input {
+            padding: 0.6rem;
+            color: white;
+            background-color: #3b4148;
+            border: none;
+            outline: none;
+            &::placeholder {
+              color: white;
+            }
+
+            &:-ms-input-placeholder {
+              color: white;
+            }
+
+            &::-ms-input-placeholder {
+              color: white;
+            }
+          }
+
+          .pass-input {
+            margin-right: 19.5px;
+
+            input {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .submit-btn {
+        width: 70%;
+        max-width: 400px;
+      }
+
+      .showhide {
+        bottom: 5px;
+        right: 7px;
+      }
+    }
+
+    .showhide {
+      color: white;
+      position: absolute;
+      bottom: 9px;
+      right: -15px;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+    }
+
+    .showhide:hover {
+      color: #ffcf11e7;
+    }
+  }
+}
