@@ -240,6 +240,11 @@ MAIN
   cursor: pointer;
 }
 
+.main .main__header .user-btn > * {
+  color: black;
+  text-decoration: none;
+}
+
 .main .main__header .user-btn:hover {
   background-color: #ffcf11e7;
   font-size: 0.84rem;
@@ -344,11 +349,8 @@ MOVIES GRID CONTAINER
   position: absolute;
   bottom: 50%;
   background-color: #ffb62c;
-  color: white;
-  font-family: "Comic Sans MS";
-  font-size: 1.3rem;
   width: 80%;
-  padding: 0.5em;
+  padding: 0.8em;
   border: none;
   border-radius: 10px;
   transition: 0.2s;
@@ -356,6 +358,14 @@ MOVIES GRID CONTAINER
   opacity: 0;
   transition: 0.5s;
   z-index: 1;
+}
+
+.element .movie-btn > * {
+  color: white;
+  font-family: "Comic Sans MS";
+  font-size: 1.3rem;
+  text-decoration: none;
+  /* padding: 0.5em; */
 }
 
 .element:hover {
@@ -518,6 +528,7 @@ STREAM PAGE
 .submit-btn {
   /* background-color: #e84c88; */
   background-color: #ffcf11e7;
+  text-align: center;
   /* font-family: "Bahnschrift"; */
   font-family: "Trebuchet MS";
   /* color: black; */
