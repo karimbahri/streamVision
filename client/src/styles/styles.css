@@ -456,6 +456,10 @@ STREAM PAGE
   color: var(--bg-color-1);
 }
 
+/* ===== 
+LOGIN PAGE 
+===== */
+
 .main__content .login {
   margin: 2rem;
   min-height: 80vh;
@@ -503,6 +507,14 @@ STREAM PAGE
 
 .login__form input::-ms-input-placeholder {
   color: white;
+}
+
+.login__form input:-webkit-autofill,
+.login__form input:-webkit-autofill:hover,
+.login__form input:-webkit-autofill:focus,
+.login__form input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #3b4148 inset !important;
+  -webkit-text-fill-color: white !important;
 }
 
 .login__form .login-icon {
@@ -586,6 +598,30 @@ STREAM PAGE
 
 .reset-page .login__form {
   gap: 4rem;
+}
+
+.notification {
+  position: fixed;
+  padding: 0.5em 6.5em;
+  font-family: monospace;
+  border-radius: 2px;
+  color: white;
+  top: 90%;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.3s ease-in;
+}
+
+.notification-appear {
+  opacity: 1;
+}
+
+.notification-success {
+  background-color: #009b4d;
+}
+
+.notification-failure {
+  background-color: red;
 }
 
 .signup {
