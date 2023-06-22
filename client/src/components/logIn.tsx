@@ -17,10 +17,14 @@ const LOGIN_MUTATION = gql`
 export default function Login(props: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [notificationClassValue, setNotificationClassValue] = useState("");
+  const [notificationValue, setNotificationValue] = useState("");
+  // let notificationClassValue = "";
+  // let notificationValue = "";
   const setLoggedInToTrue = props.setIsLoggedInToTrue;
   const navigate = useNavigate();
 
-  const [login] = useMutation(LOGIN_MUTATION, {
+  const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       console.log("data : ", data);
       localStorage.setItem("token", data.login);
@@ -29,13 +33,22 @@ export default function Login(props: any) {
       navigate("/");
     },
     onError: (error) => {
-      console.log("l3asba : ", error);
+      setNotificationValue(error.message);
+      setNotificationClassValue("notification-appear notification-failure");
     },
   });
 
   useEffect(() => {
     if (isLoggedIn()) navigate("/");
-  }, []);
+
+    if (loading) {
+      setNotificationValue("Loading...");
+      setNotificationClassValue("notification-appear notification-success");
+      // notificationClassValue = "Loading...";
+      // notificationValue = "notification-appear";
+      // console.log(`${notificationClassValue} ${notificationValue}`);
+    }
+  }, [loading]);
 
   return (
     <div className="login">
@@ -76,7 +89,10 @@ export default function Login(props: any) {
       <p className="create-account">
         Don't have account? <a href="#">sign up</a>
       </p>
-      <Notification />
+      <Notification
+        classValue={notificationClassValue}
+        message={notificationValue}
+      />
     </div>
   );
 }
