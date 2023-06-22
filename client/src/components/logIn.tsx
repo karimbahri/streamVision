@@ -19,8 +19,6 @@ export default function Login(props: any) {
   const [password, setPassword] = useState("");
   const [notificationClassValue, setNotificationClassValue] = useState("");
   const [notificationValue, setNotificationValue] = useState("");
-  // let notificationClassValue = "";
-  // let notificationValue = "";
   const setLoggedInToTrue = props.setIsLoggedInToTrue;
   const navigate = useNavigate();
 
@@ -44,9 +42,6 @@ export default function Login(props: any) {
     if (loading) {
       setNotificationValue("Loading...");
       setNotificationClassValue("notification-appear notification-success");
-      // notificationClassValue = "Loading...";
-      // notificationValue = "notification-appear";
-      // console.log(`${notificationClassValue} ${notificationValue}`);
     }
   }, [loading]);
 
