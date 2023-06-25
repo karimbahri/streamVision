@@ -22,6 +22,17 @@ export default function Login(props: any) {
   const setLoggedInToTrue = props.setIsLoggedInToTrue;
   const navigate = useNavigate();
 
+  const setNotification = (
+    notificationClassValue: any,
+    notificationValue: any
+  ) => {
+    setNotificationClassValue(notificationClassValue);
+    setNotificationValue(notificationValue);
+    setTimeout(() => {
+      setNotificationClassValue("");
+    }, 3000);
+  };
+
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       console.log("data : ", data);
@@ -31,8 +42,10 @@ export default function Login(props: any) {
       navigate("/");
     },
     onError: (error) => {
-      setNotificationValue(error.message);
-      setNotificationClassValue("notification-appear notification-failure");
+      setNotification(
+        "notification-appear notification-failure",
+        error.message
+      );
     },
   });
 
@@ -40,8 +53,7 @@ export default function Login(props: any) {
     if (isLoggedIn()) navigate("/");
 
     if (loading) {
-      setNotificationValue("Loading...");
-      setNotificationClassValue("notification-appear notification-success");
+      setNotification("notification-appear notification-success", "Loading...");
     }
   }, [loading]);
 
@@ -74,8 +86,12 @@ export default function Login(props: any) {
         <a
           className="submit-btn"
           onClick={async () => {
-            console.log(`email: ${email} | password: ${password}`);
-            await login({ variables: { email, password } });
+            if (!email || !password) {
+              setNotification(
+                "notification-appear notification-failure",
+                "Please fill all the fields"
+              );
+            } else await login({ variables: { email, password } });
           }}
         >
           Login
