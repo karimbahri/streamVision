@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function PasswordInput(props: any) {
   const [showhide, setShowhide] = useState(false);
   const [isPassTyped, setIsPassTyped] = useState(false);
-  const setPassword = props.setPassword;
+  const setPassword = props.assignPassword;
 
   return (
     <div className="pass-input">
