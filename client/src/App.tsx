@@ -53,6 +53,7 @@ export default function App() {
                 />
               }
             />
+            <Route path="/register" element={<SignUp />} />
             <Route path="/watch" element={<StreamPage />} />
             <Route path="/*" element={<Movies />} />
           </Routes>
