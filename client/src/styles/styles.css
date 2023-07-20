@@ -509,10 +509,10 @@ LOGIN PAGE
   color: white;
 }
 
-.login__form input:-webkit-autofill,
-.login__form input:-webkit-autofill:hover,
-.login__form input:-webkit-autofill:focus,
-.login__form input:-webkit-autofill:active {
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #3b4148 inset !important;
   -webkit-text-fill-color: white !important;
 }
@@ -586,7 +586,7 @@ LOGIN PAGE
   color: #ffcf11e7;
 }
 
-.create-account a {
+.create-account .anchor {
   text-decoration: none;
   color: #ffcf11e7;
 }
@@ -685,6 +685,14 @@ LOGIN PAGE
 .input-field input::-ms-input-placeholder {
   color: white;
 }
+
+/* .input-field input:-webkit-autofill,
+.input-field input:-webkit-autofill:hover,
+.input-field input:-webkit-autofill:focus,
+.input-field input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #3b4148 inset !important;
+  -webkit-text-fill-color: white !important;
+} */
 
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
