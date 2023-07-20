@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import client from "../apollo-client";
 import PasswordInput from "./passwordInput";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../utils";
 import Notification from "./notification";
 
@@ -72,13 +72,13 @@ export default function Login(props: any) {
         </div>
         <div className="input-field">
           <Icon.LockFill className="login-icon pass-label" />
-          {/* <PasswordInput placeholder="Password" assignPassword={setPassword} /> */}
-          <input
+          <PasswordInput placeholder="Password" assignPassword={setPassword} />
+          {/* <input
             type="password"
             placeholder="password"
             required
             onChange={(e) => setPassword(e.target.value)}
-          />
+          /> */}
         </div>
         <a href="#" className="reset-pass">
           Forgot password?
@@ -98,7 +98,10 @@ export default function Login(props: any) {
         </a>
       </form>
       <p className="create-account">
-        Don't have account? <a href="#">sign up</a>
+        Don't have account?{" "}
+        <Link className={"anchor"} to={"/register"}>
+          sign up
+        </Link>
       </p>
       <Notification
         classValue={notificationClassValue}
