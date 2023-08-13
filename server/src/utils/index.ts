@@ -12,3 +12,8 @@ export const checkValidUserName = (userName: string) => {
   if (!/^[a-zA-Z]{1}[a-zA-Z0-9_-]{2,15}$/g.test(userName)) return false;
   return true;
 };
+
+export const checkValidFullName = (fullName: string) => {
+  if (!/^[a-zA-Z]{2,12}[ ][a-zA-Z\s*]{2,20}$/g.test(fullName)) return false;
+  return true;
+};
