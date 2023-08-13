@@ -17,3 +17,13 @@ export const checkValidFullName = (fullName: string) => {
   if (!/^[a-zA-Z]{2,12}[ ][a-zA-Z\s*]{2,20}$/g.test(fullName)) return false;
   return true;
 };
+
+export const checkValidPassword = (password: string) => {
+  if (
+    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@()}#~{[|`^$!%*?&]{8,}$/g.test(
+      password
+    )
+  )
+    return false;
+  return true;
+};
