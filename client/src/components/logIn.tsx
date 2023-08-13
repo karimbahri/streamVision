@@ -5,11 +5,11 @@ import client from "../apollo-client";
 import PasswordInput from "./passwordInput";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { isLoggedIn } from "../utils";
+import { isLoggedIn, setNotification } from "../utils";
 import Notification from "./notification";
 
 const LOGIN_MUTATION = gql`
-  mutation Login($email: String!, $password: String!) {
+  mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password)
   }
 `;
@@ -21,17 +21,23 @@ export default function Login(props: any) {
   const [notificationValue, setNotificationValue] = useState("");
   const setLoggedInToTrue = props.setIsLoggedInToTrue;
   const navigate = useNavigate();
-
-  const setNotification = (
-    notificationClassValue: any,
-    notificationValue: any
-  ) => {
-    setNotificationClassValue(notificationClassValue);
-    setNotificationValue(notificationValue);
-    setTimeout(() => {
-      setNotificationClassValue("");
-    }, 3000);
+  const setNotificationArgs = {
+    notificationClassValue,
+    setNotificationClassValue,
+    notificationValue,
+    setNotificationValue,
   };
+
+  // const setNotification = (
+  //   notificationClassValue: any,
+  //   notificationValue: any
+  // ) => {
+  //   setNotificationClassValue(notificationClassValue);
+  //   setNotificationValue(notificationValue);
+  //   setTimeout(() => {
+  //     setNotificationClassValue("");
+  //   }, 3000);
+  // };
 
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
@@ -42,10 +48,10 @@ export default function Login(props: any) {
       navigate("/");
     },
     onError: (error) => {
-      setNotification(
-        "notification-appear notification-failure",
-        error.message
-      );
+      setNotificationArgs.notificationClassValue =
+        "notification-appear notification-failure";
+      setNotificationArgs.notificationValue = error.message;
+      setNotification(setNotificationArgs);
     },
   });
 
@@ -53,7 +59,10 @@ export default function Login(props: any) {
     if (isLoggedIn()) navigate("/");
 
     if (loading) {
-      setNotification("notification-appear notification-success", "Loading...");
+      setNotificationArgs.notificationClassValue =
+        "notification-appear notification-success";
+      setNotificationArgs.notificationValue = "Loading...";
+      setNotification(setNotificationArgs);
     }
   }, [loading]);
 
@@ -87,10 +96,11 @@ export default function Login(props: any) {
           className="submit-btn"
           onClick={async () => {
             if (!email || !password) {
-              setNotification(
-                "notification-appear notification-failure",
-                "Please fill all the fields"
-              );
+              setNotificationArgs.notificationClassValue =
+                "notification-appear notification-failure";
+              setNotificationArgs.notificationValue =
+                "Please fill all the fields";
+              setNotification(setNotificationArgs);
             } else await login({ variables: { email, password } });
           }}
         >
