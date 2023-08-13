@@ -3,11 +3,14 @@ import { useMutation } from "@apollo/react-hooks";
 import { useState } from "react";
 import gql from "graphql-tag";
 import client from "../apollo-client";
+import Notification from "./notification";
+import { setNotification } from "../utils";
 
 const SIGNUP_MUTATION = gql`
   mutation createUser(
     $userName: String!
     $password: String!
+    $passwordConfirmation: String!
     $fullName: String!
     $email: String!
     $birthday: String!
@@ -15,10 +18,13 @@ const SIGNUP_MUTATION = gql`
     createUser(
       userName: $userName
       password: $password
+      passwordConfirmation: $passwordConfirmation
       fullName: $fullName
       email: $email
       birthday: $birthday
-    )
+    ) {
+      id
+    }
   }
 `;
 
@@ -29,14 +35,27 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [notificationClassValue, setNotificationClassValue] = useState("");
+  const [notificationValue, setNotificationValue] = useState("");
 
-  const [signup /*, { loading, error }*/] = useMutation(SIGNUP_MUTATION, {
+  const setNotificationArgs = {
+    notificationClassValue,
+    setNotificationClassValue,
+    notificationValue,
+    setNotificationValue,
+  };
+
+  const [createUser /*, { loading, error }*/] = useMutation(SIGNUP_MUTATION, {
     onCompleted: (data) => {
       console.log("data : ", data);
+      client.resetStore();
       // navigate("/");
     },
     onError: (error) => {
-      console.log(error);
+      setNotificationArgs.notificationClassValue =
+        "notification-appear notification-failure";
+      setNotificationArgs.notificationValue = error.message;
+      setNotification(setNotificationArgs);
     },
   });
 
@@ -98,7 +117,7 @@ export default function SignUp() {
       </form>
       <a
         onClick={async () => {
-          await signup({
+          await createUser({
             variables: {
               fullName,
               email,
@@ -119,6 +138,10 @@ export default function SignUp() {
       >
         Sign up
       </a>
+      <Notification
+        classValue={notificationClassValue}
+        message={notificationValue}
+      />
     </div>
   );
 }
