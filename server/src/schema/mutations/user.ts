@@ -33,8 +33,6 @@ export const CREATE_USER = {
       isAdmin,
     } = args;
 
-    /* Checking items */
-
     if (!checkValidEmail(email)) throw new Error("Unvalid email !");
     if (!checkValidFullName(fullName))
       throw new Error(
