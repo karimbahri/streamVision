@@ -16,3 +16,25 @@ export const isLoggedIn = () => {
     return false;
   }
 };
+
+export const setNotification = (setNotificationArgs: {
+  notificationClassValue?: string;
+  setNotificationClassValue?: Function;
+  notificationValue?: string;
+  setNotificationValue?: Function;
+}) => {
+  const {
+    notificationClassValue,
+    setNotificationClassValue,
+    notificationValue,
+    setNotificationValue,
+  } = setNotificationArgs;
+
+  if (!setNotificationClassValue || !setNotificationValue) return;
+
+  setNotificationClassValue(notificationClassValue);
+  setNotificationValue(notificationValue);
+  setTimeout(() => {
+    setNotificationClassValue("");
+  }, 3000);
+};
