@@ -1,9 +1,15 @@
-import { GraphQLID, GraphQLString } from "graphql";
+import { GraphQLBoolean, GraphQLID, GraphQLString } from "graphql";
 import UserType from "../typedefs/user";
 import { Users } from "../../entities";
 import { RequestStatus } from "../typedefs/requestStatus";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import {
+  checkValidEmail,
+  checkValidFullName,
+  checkValidUserName,
+  checkValidPassword,
+} from "../../utils";
 
 export const CREATE_USER = {
   type: UserType,
@@ -12,10 +18,42 @@ export const CREATE_USER = {
     userName: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
+    passwordConfirmation: { type: GraphQLString },
     birthday: { type: GraphQLString },
+    isAdmin: { type: GraphQLBoolean },
   },
   async resolve(parent: any, args: any) {
-    let { fullName, userName, email, password, birthday } = args;
+    let {
+      fullName,
+      userName,
+      email,
+      password,
+      passwordConfirmation,
+      birthday,
+      isAdmin,
+    } = args;
+
+    /* Checking items */
+
+    if (!checkValidEmail(email)) throw new Error("Unvalid email !");
+    if (!checkValidFullName(fullName))
+      throw new Error(
+        "Unvalid FullName! \nPlease use the following format : firstname (middlename) lastname"
+      );
+    if (!checkValidUserName(userName)) throw new Error("Unvalid userName !");
+    if (!checkValidPassword(password))
+      throw new Error(
+        "Password must be at least 8 characters and contains uppercase, lowercase, digits and special characters !"
+      );
+    if (password != passwordConfirmation)
+      throw new Error("Password must match with passwordConfirmation !");
+
+    const user = await Users.findOne({
+      where: [{ email: email }, { userName: userName }],
+    });
+    if (user) throw new Error("User already registered !");
+
+    isAdmin = !isAdmin ? false : true;
 
     const hashed_password = await bcrypt.hash(password, 10);
     await Users.insert({
@@ -24,6 +62,7 @@ export const CREATE_USER = {
       email,
       password: hashed_password,
       birthday,
+      isAdmin,
     });
     return args;
   },
@@ -40,7 +79,7 @@ export const LOGIN = {
     const user = await Users.findOne({ where: { email: email } });
 
     if (!user) {
-      throw new Error("User doesn't exist");
+      throw new Error("User doesn't exist !");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
