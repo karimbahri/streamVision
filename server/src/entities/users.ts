@@ -19,4 +19,7 @@ export default class Users extends BaseEntity {
 
   @Column()
   birthday!: string;
+
+  @Column({ nullable: true })
+  isAdmin!: boolean;
 }
