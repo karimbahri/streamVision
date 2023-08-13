@@ -4,7 +4,7 @@ import {
   GraphQLString,
   GraphQLBoolean,
 } from "graphql";
-//
+
 const UserType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
