@@ -7,3 +7,8 @@ export const checkValidEmail = (email: string) => {
     return false;
   return true;
 };
+
+export const checkValidUserName = (userName: string) => {
+  if (!/^[a-zA-Z]{1}[a-zA-Z0-9_-]{2,15}$/g.test(userName)) return false;
+  return true;
+};
