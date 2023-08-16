@@ -1,10 +1,11 @@
 import PasswordInput from "./passwordInput";
 import { useMutation } from "@apollo/react-hooks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import gql from "graphql-tag";
 import client from "../apollo-client";
 import Notification from "./notification";
-import { setNotification } from "../utils";
+import { setNotification, isLoggedIn } from "../utils";
 
 const SIGNUP_MUTATION = gql`
   mutation createUser(
@@ -28,7 +29,7 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-export default function SignUp() {
+export default function SignUp(props: any) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
@@ -37,6 +38,9 @@ export default function SignUp() {
   const [birthday, setBirthday] = useState("");
   const [notificationClassValue, setNotificationClassValue] = useState("");
   const [notificationValue, setNotificationValue] = useState("");
+  const setLoggedInToTrue = props.setIsLoggedInToTrue;
+
+  const navigate = useNavigate();
 
   const setNotificationArgs = {
     notificationClassValue,
@@ -45,11 +49,16 @@ export default function SignUp() {
     setNotificationValue,
   };
 
-  const [createUser /*, { loading, error }*/] = useMutation(SIGNUP_MUTATION, {
+  const [createUser, { loading, error }] = useMutation(SIGNUP_MUTATION, {
     onCompleted: (data) => {
       console.log("data : ", data);
       client.resetStore();
-      // navigate("/");
+      // setLoggedInToTrue();
+      setNotificationArgs.notificationClassValue =
+        "notification-appear notification-success";
+      setNotificationArgs.notificationValue = "User created successfully";
+      setNotification(setNotificationArgs);
+      navigate("/");
     },
     onError: (error) => {
       setNotificationArgs.notificationClassValue =
@@ -58,6 +67,17 @@ export default function SignUp() {
       setNotification(setNotificationArgs);
     },
   });
+
+  useEffect(() => {
+    if (isLoggedIn()) navigate("/");
+
+    if (loading) {
+      setNotificationArgs.notificationClassValue =
+        "notification-appear notification-success";
+      setNotificationArgs.notificationValue = "Loading...";
+      setNotification(setNotificationArgs);
+    }
+  }, [loading]);
 
   return (
     <div className="signup">
@@ -127,12 +147,6 @@ export default function SignUp() {
               birthday,
             },
           });
-          console.log(`fullName : ${fullName}`);
-          console.log(`email: ${email}`);
-          console.log(`userName: ${userName}`);
-          console.log(`password: ${password}`);
-          console.log(`passwordConfirmation: ${passwordConfirmation}`);
-          console.log(`birthday: ${birthday}`);
         }}
         className="submit-btn"
       >
