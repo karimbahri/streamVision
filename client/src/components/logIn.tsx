@@ -45,7 +45,7 @@ export default function Login(props: any) {
       localStorage.setItem("token", data.login);
       client.resetStore();
       setLoggedInToTrue();
-      navigate("/");
+      // navigate("/");
     },
     onError: (error) => {
       setNotificationArgs.notificationClassValue =
