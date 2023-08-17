@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import gql from "graphql-tag";
 import client from "../apollo-client";
 import Notification from "./notification";
-import { setNotification, isLoggedIn } from "../utils";
+import { setNotification } from "../utils";
 
 const SIGNUP_MUTATION = gql`
   mutation createUser(
@@ -38,7 +38,7 @@ export default function SignUp(props: any) {
   const [birthday, setBirthday] = useState("");
   const [notificationClassValue, setNotificationClassValue] = useState("");
   const [notificationValue, setNotificationValue] = useState("");
-  const setLoggedInToTrue = props.setIsLoggedInToTrue;
+  const isLoggedIn = props.isLoggedIn;
 
   const navigate = useNavigate();
 
@@ -53,7 +53,6 @@ export default function SignUp(props: any) {
     onCompleted: (data) => {
       console.log("data : ", data);
       client.resetStore();
-      // setLoggedInToTrue();
       setNotificationArgs.notificationClassValue =
         "notification-appear notification-success";
       setNotificationArgs.notificationValue = "User created successfully";
@@ -69,7 +68,7 @@ export default function SignUp(props: any) {
   });
 
   useEffect(() => {
-    if (isLoggedIn()) navigate("/");
+    if (isLoggedIn) navigate("/");
 
     if (loading) {
       setNotificationArgs.notificationClassValue =
@@ -96,7 +95,7 @@ export default function SignUp(props: any) {
           <label htmlFor="email">Email: </label>
           <input
             id="email"
-            type="text"
+            type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
