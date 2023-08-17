@@ -5,7 +5,7 @@ import client from "../apollo-client";
 import PasswordInput from "./passwordInput";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { isLoggedIn, setNotification } from "../utils";
+import { /*isLoggedIn,*/ setNotification } from "../utils";
 import Notification from "./notification";
 
 const LOGIN_MUTATION = gql`
@@ -20,6 +20,7 @@ export default function Login(props: any) {
   const [notificationClassValue, setNotificationClassValue] = useState("");
   const [notificationValue, setNotificationValue] = useState("");
   const setLoggedInToTrue = props.setIsLoggedInToTrue;
+  const isLoggedIn = props.isLoggedIn;
   const navigate = useNavigate();
   const setNotificationArgs = {
     notificationClassValue,
@@ -56,7 +57,7 @@ export default function Login(props: any) {
   });
 
   useEffect(() => {
-    if (isLoggedIn()) navigate("/");
+    if (isLoggedIn) navigate("/");
 
     if (loading) {
       setNotificationArgs.notificationClassValue =
