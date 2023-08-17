@@ -50,10 +50,14 @@ export default function App() {
                   setIsLoggedInToTrue={() => {
                     setIsLoggedIn(true);
                   }}
+                  isLoggedIn={isLoggedIn}
                 />
               }
             />
-            <Route path="/register" element={<SignUp />} />
+            <Route
+              path="/register"
+              element={<SignUp isLoggedIn={isLoggedIn} />}
+            />
             <Route path="/watch" element={<StreamPage />} />
             <Route path="/*" element={<Movies />} />
           </Routes>
