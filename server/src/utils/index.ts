@@ -27,3 +27,15 @@ export const checkValidPassword = (password: string) => {
     return false;
   return true;
 };
+
+export const checkValidBirthday = (birthday: string) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/g.test(birthday)) return false;
+  const date = Number(birthday.slice(8));
+  const month = Number(birthday.slice(5, 7));
+  const year = Number(birthday.slice(0, 4));
+
+  if (date < 1 || date > 31) return false;
+  if (month < 1 || month > 12) return false;
+  if (year < 1900 || year > Number(new Date().getFullYear())) return false;
+  return true;
+};
