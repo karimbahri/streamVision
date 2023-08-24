@@ -146,6 +146,7 @@ export default function SignUp(props: any) {
               birthday,
             },
           });
+          console.log(birthday);
         }}
         className="submit-btn"
       >
