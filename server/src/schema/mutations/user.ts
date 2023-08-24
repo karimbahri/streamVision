@@ -9,6 +9,7 @@ import {
   checkValidFullName,
   checkValidUserName,
   checkValidPassword,
+  checkValidBirthday,
 } from "../../utils";
 
 export const CREATE_USER = {
@@ -47,6 +48,8 @@ export const CREATE_USER = {
       );
     if (password != passwordConfirmation)
       throw new Error("Password must match with passwordConfirmation !");
+
+    if (!checkValidBirthday(birthday)) throw new Error("Unvalid birthday !");
 
     const user = await Users.findOne({
       where: [{ email: email }, { userName: userName }],
