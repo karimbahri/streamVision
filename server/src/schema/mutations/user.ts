@@ -1,15 +1,17 @@
 import { GraphQLBoolean, GraphQLID, GraphQLString } from "graphql";
 import UserType from "../typedefs/user";
-import { Users } from "../../entities";
+import { Users, VerificationCode } from "../../entities";
 import { RequestStatus } from "../typedefs/requestStatus";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 import {
   checkValidEmail,
   checkValidFullName,
   checkValidUserName,
   checkValidPassword,
   checkValidBirthday,
+  generateId,
 } from "../../utils";
 
 export const CREATE_USER = {
@@ -187,5 +189,47 @@ export const UPDATE_USER = {
       return await Users.update({ id }, updated_usr);
 
     throw new Error("NO ITEM SELECTED !");
+  },
+};
+
+export const RESET_USER = {
+  type: UserType,
+  args: {
+    email: { type: GraphQLString },
+  },
+  async resolve(parent: any, args: any) {
+    const { email } = args;
+
+    const user = await Users.findOne({ where: { email: email } });
+    if (!user) throw new Error("USER DOESN'T EXIST !");
+
+    const verifCode = generateId();
+
+    await VerificationCode.delete({ email });
+    await VerificationCode.insert({ email, code: verifCode });
+
+    const client = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.MAILER_EMAIL,
+        pass: process.env.MAILER_PASSWORD,
+      },
+    });
+
+    client.sendMail(
+      {
+        from: "noreply@steamvision.app",
+        to: email,
+        subject: "Password reset verification code",
+        html: `<p>Your verification code is <strong>${verifCode}</strong></p>`,
+      },
+      function (err, data) {
+        if (err) {
+          console.log("Error " + err);
+        } else {
+          console.log("Email sent successfully");
+        }
+      }
+    );
   },
 };
