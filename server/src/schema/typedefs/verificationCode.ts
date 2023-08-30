@@ -9,4 +9,4 @@ const VerificationCodeType = new GraphQLObjectType({
   }),
 });
 
-export default VerificationCodeType;
+// export default VerificationCodeType;
