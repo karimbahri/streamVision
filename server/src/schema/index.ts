@@ -24,7 +24,7 @@ const mutation = new GraphQLObjectType({
     deleteUser: DELETE_USER,
     updateUserPassword: UPDATE_USER_PASSWORD,
     updateUser: UPDATE_USER,
-    // resetUser: RESET_USER,
+    resetUser: RESET_USER,
   },
 });
 
