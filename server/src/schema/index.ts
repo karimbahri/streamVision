@@ -5,6 +5,7 @@ import {
   LOGIN,
   UPDATE_USER,
   UPDATE_USER_PASSWORD,
+  RESET_USER,
 } from "./mutations/user";
 import GET_ALL_USERS from "./queries/user";
 
