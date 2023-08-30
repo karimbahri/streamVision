@@ -221,7 +221,7 @@ export const RESET_USER = {
         from: "noreply@steamvision.app",
         to: email,
         subject: "Password reset verification code",
-        // html: `<p>Your verification code is <strong>${verifCode}</strong></p>`,
+        html: `<p>Your verification code is <strong>${verifCode}</strong></p>`,
       },
       function (err, data) {
         if (err) {
