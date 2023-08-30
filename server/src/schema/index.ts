@@ -3,7 +3,6 @@ import {
   CREATE_USER,
   DELETE_USER,
   LOGIN,
-  RESET_USER,
   UPDATE_USER,
   UPDATE_USER_PASSWORD,
 } from "./mutations/user";
