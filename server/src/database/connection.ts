@@ -1,5 +1,5 @@
 import { createConnection } from "typeorm";
-import { Shows, Users } from "../entities";
+import { Shows, Users, VerificationCode } from "../entities";
 
 export default async function connectToDB() {
   await createConnection({
@@ -11,6 +11,6 @@ export default async function connectToDB() {
     password: process.env.DB_PASSWORD,
     logging: true,
     synchronize: true,
-    entities: [Users, Shows],
+    entities: [Users, Shows, VerificationCode],
   });
 }
