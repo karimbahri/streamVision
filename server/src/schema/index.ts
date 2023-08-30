@@ -3,6 +3,7 @@ import {
   CREATE_USER,
   DELETE_USER,
   LOGIN,
+  RESET_USER,
   UPDATE_USER,
   UPDATE_USER_PASSWORD,
 } from "./mutations/user";
@@ -23,6 +24,7 @@ const mutation = new GraphQLObjectType({
     deleteUser: DELETE_USER,
     updateUserPassword: UPDATE_USER_PASSWORD,
     updateUser: UPDATE_USER,
+    resetUser: RESET_USER,
   },
 });
 
