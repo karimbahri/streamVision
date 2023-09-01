@@ -117,20 +117,27 @@ export const DELETE_USER = {
 export const UPDATE_USER_PASSWORD = {
   type: UserType,
   args: {
-    userName: { type: GraphQLString },
+    email: { type: GraphQLString },
     oldPassword: { type: GraphQLString },
     newPassword: { type: GraphQLString },
+    code: { type: GraphQLString },
   },
   async resolve(parent: any, args: any) {
-    const { userName, oldPassword, newPassword } = args;
+    const { email, oldPassword, newPassword, code } = args;
 
-    const user = await Users.findOne({ where: { userName: userName } });
+    const user = await Users.findOne({ where: { email: email } });
     if (!user) throw new Error("USER DOESN'T EXIST !");
+
+    const verif_code = await VerificationCode.findOne({
+      where: { email: email, code: code },
+    });
+    if (!verif_code) throw new Error("Verification code expired !");
+
     const passwordMatch = await bcrypt.compare(oldPassword, user.password);
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
     if (passwordMatch) {
-      return await Users.update({ userName }, { password: hashedNewPassword });
+      return await Users.update({ email }, { password: hashedNewPassword });
     } else {
       throw new Error("Password doesn't match");
     }
@@ -205,8 +212,18 @@ export const RESET_USER = {
 
     const verifCode = generateId();
 
+    const removeTrailingVerificationCode = () =>
+      new Promise((resolve, reject) => {
+        setTimeout(async () => {
+          resolve(await VerificationCode.delete({ email }));
+        }, 100000);
+      });
+
     await VerificationCode.delete({ email });
     await VerificationCode.insert({ email, code: verifCode });
+    removeTrailingVerificationCode().then(() =>
+      console.log("verification code deleted successfully!")
+    );
 
     const client = nodemailer.createTransport({
       service: "Gmail",
@@ -231,5 +248,24 @@ export const RESET_USER = {
         }
       }
     );
+  },
+};
+
+export const CHECK_VERIFICATION_CODE = {
+  type: GraphQLString,
+  args: {
+    email: { type: GraphQLString },
+    code: { type: GraphQLString },
+  },
+  async resolve(parent: any, args: any) {
+    const { email, code } = args;
+
+    const verif_code = await VerificationCode.findOne({
+      where: { code: code, email: email },
+    });
+
+    if (!verif_code) throw new Error("Unvalid code !");
+
+    return "OK!";
   },
 };
