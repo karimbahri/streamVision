@@ -6,6 +6,7 @@ import {
   UPDATE_USER,
   UPDATE_USER_PASSWORD,
   RESET_USER,
+  CHECK_VERIFICATION_CODE,
 } from "./mutations/user";
 import GET_ALL_USERS from "./queries/user";
 
@@ -25,6 +26,7 @@ const mutation = new GraphQLObjectType({
     updateUserPassword: UPDATE_USER_PASSWORD,
     updateUser: UPDATE_USER,
     resetUser: RESET_USER,
+    chaeckVerificationUser: CHECK_VERIFICATION_CODE,
   },
 });
 
