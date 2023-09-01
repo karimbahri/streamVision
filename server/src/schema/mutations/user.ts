@@ -1,7 +1,6 @@
 import { GraphQLBoolean, GraphQLID, GraphQLString } from "graphql";
 import UserType from "../typedefs/user";
 import { Users, VerificationCode } from "../../entities";
-import { RequestStatus } from "../typedefs/requestStatus";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
