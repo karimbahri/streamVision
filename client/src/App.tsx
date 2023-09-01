@@ -15,6 +15,8 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
 import client from "./apollo-client";
 import { useState } from "react";
+import ResetPassword from "./components/resetPassword";
+import CodeVerification from "./components/codeVerification";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => isLoggedInFx());
@@ -60,6 +62,9 @@ export default function App() {
             />
             <Route path="/watch" element={<StreamPage />} />
             <Route path="/*" element={<Movies />} />
+            <Route path="/reset-account" element={<Reset />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/code-verification" element={<CodeVerification />} />
           </Routes>
           {/* <Movies />
           <MoviesSlider /> */}
