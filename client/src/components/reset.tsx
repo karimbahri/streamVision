@@ -27,7 +27,7 @@ export default function Reset() {
   };
   const navigate = useNavigate();
 
-  const [resetUser, { loading, error }] = useMutation(RESET_USER, {
+  const [resetUser, { loading }] = useMutation(RESET_USER, {
     onCompleted: () => {
       client.resetStore();
       setNotificationArgs.notificationClassValue =
