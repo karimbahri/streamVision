@@ -6,6 +6,8 @@ import Notification from "./notification";
 import { setNotification } from "../utils";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setReset, setEmail as redux_setEmail } from "../redux/actions";
 
 const RESET_USER = gql`
   mutation resetUser($email: String!) {
@@ -25,10 +27,13 @@ export default function Reset() {
     notificationValue,
     setNotificationValue,
   };
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [resetUser, { loading }] = useMutation(RESET_USER, {
     onCompleted: () => {
+      dispatch(setReset(true));
+      dispatch(redux_setEmail(email));
       client.resetStore();
       setNotificationArgs.notificationClassValue =
         "notification-appear notification-success";
@@ -51,6 +56,9 @@ export default function Reset() {
       setNotificationArgs.notificationValue = "Loading...";
       setNotification(setNotificationArgs);
     }
+    return () => {
+      dispatch(setReset(false));
+    };
   }, [loading]);
 
   return (
