@@ -11,6 +11,7 @@ import {
   checkValidPassword,
   checkValidBirthday,
   generateId,
+  removeExpiredAuth,
 } from "../../utils";
 
 export const CREATE_USER = {
@@ -130,13 +131,18 @@ export const UPDATE_USER_PASSWORD = {
     const verif_code = await VerificationCode.findOne({
       where: { email: email, code: code },
     });
-    if (!verif_code) throw new Error("Verification code expired !");
+    if (!verif_code) throw new Error("Authorization session expired !");
 
     const passwordMatch = await bcrypt.compare(oldPassword, user.password);
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
     if (passwordMatch) {
-      return await Users.update({ email }, { password: hashedNewPassword });
+      if (!checkValidPassword(newPassword))
+        throw new Error(
+          "Password must be at least 8 characters and contains uppercase, lowercase, digits and special characters !"
+        );
+      await Users.update({ email }, { password: hashedNewPassword });
+      await VerificationCode.delete({ code });
     } else {
       throw new Error("Password doesn't match");
     }
@@ -211,16 +217,16 @@ export const RESET_USER = {
 
     const verifCode = generateId();
 
-    const removeTrailingVerificationCode = () =>
-      new Promise((resolve, reject) => {
-        setTimeout(async () => {
-          resolve(await VerificationCode.delete({ email }));
-        }, 100000);
-      });
+    // const removeTrailingVerificationCode = () =>
+    //   new Promise((resolve, reject) => {
+    //     setTimeout(async () => {
+    //       resolve(await VerificationCode.delete({ email }));
+    //     }, 100000);
+    //   });
 
     await VerificationCode.delete({ email });
     await VerificationCode.insert({ email, code: verifCode });
-    removeTrailingVerificationCode().then(() =>
+    removeExpiredAuth(VerificationCode, email, verifCode, 550).then(() =>
       console.log("verification code deleted successfully!")
     );
 
