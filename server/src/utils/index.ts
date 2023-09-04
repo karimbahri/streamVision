@@ -20,7 +20,7 @@ export const checkValidFullName = (fullName: string) => {
 
 export const checkValidPassword = (password: string) => {
   if (
-    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@()}#~{[|`^$!%*?&]{8,}$/g.test(
+    !/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/g.test(
       password
     )
   )
@@ -39,3 +39,22 @@ export const checkValidBirthday = (birthday: string) => {
   if (year < 1900 || year > Number(new Date().getFullYear())) return false;
   return true;
 };
+
+/* ======================================================================= */
+
+export const removeExpiredAuth = (
+  VerificationCode: { delete: any; findOne: any },
+  email: string,
+  code: string,
+  time: number
+) =>
+  new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      resolve(async () => {
+        const verif_code = await VerificationCode.findOne({
+          where: { code: code, email: email },
+        });
+        if (verif_code) await VerificationCode.delete({ email });
+      });
+    }, time * 1000);
+  });
