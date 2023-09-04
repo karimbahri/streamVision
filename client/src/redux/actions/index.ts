@@ -1,7 +1,21 @@
 import actionTypes from "./actionTypes";
-export const set_reset = (isReset: {}) => {
+export const setReset = (isReset: Boolean) => {
   return {
     type: actionTypes.SET_RESET,
-    payload: { ...isReset },
+    payload: isReset,
+  };
+};
+
+export const setEmail = (email: String) => {
+  return {
+    type: actionTypes.SET_EMAIL,
+    payload: email,
+  };
+};
+
+export const setCode = (code: String) => {
+  return {
+    type: actionTypes.SET_CODE,
+    payload: code,
   };
 };
