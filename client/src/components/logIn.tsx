@@ -90,9 +90,9 @@ export default function Login(props: any) {
             onChange={(e) => setPassword(e.target.value)}
           /> */}
         </div>
-        <a href="#" className="reset-pass">
+        <Link to="/reset-account" className="reset-pass">
           Forgot password?
-        </a>
+        </Link>
         <a
           className="submit-btn"
           onClick={async () => {
