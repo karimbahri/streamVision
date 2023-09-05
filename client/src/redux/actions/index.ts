@@ -19,3 +19,10 @@ export const setCode = (code: String) => {
     payload: code,
   };
 };
+
+export const setTimeoutId = (timeoutId: {}) => {
+  return {
+    type: actionTypes.SET_TIMEOUT_ID,
+    payload: timeoutId,
+  };
+};
