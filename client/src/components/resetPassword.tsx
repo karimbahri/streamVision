@@ -12,7 +12,6 @@ import {
   setCode,
   setEmail as redux_setEmail,
   setReset,
-  setTimeoutId,
 } from "../redux/actions";
 
 const RESET_PASSWORD = gql`
