@@ -1,4 +1,7 @@
 import jwtDecode from "jwt-decode";
+// import { useDispatch, useSelector } from "react-redux";
+import store from "../redux/store";
+import { setTimeoutId } from "../redux/actions";
 
 export const isLoggedIn = () => {
   const token = localStorage.getItem("token");
@@ -30,11 +33,20 @@ export const setNotification = (setNotificationArgs: {
     setNotificationValue,
   } = setNotificationArgs;
 
+  const timeoutId = store.getState().timeoutId;
+  // const dispatch = useDispatch();
+
+  clearTimeout(timeoutId);
+
   if (!setNotificationClassValue || !setNotificationValue) return;
 
   setNotificationClassValue(notificationClassValue);
   setNotificationValue(notificationValue);
-  setTimeout(() => {
-    setNotificationClassValue("");
-  }, 3000);
+  store.dispatch(
+    setTimeoutId(
+      setTimeout(() => {
+        setNotificationClassValue("");
+      }, 5500)
+    )
+  );
 };
