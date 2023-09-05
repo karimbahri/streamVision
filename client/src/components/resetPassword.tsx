@@ -12,6 +12,7 @@ import {
   setCode,
   setEmail as redux_setEmail,
   setReset,
+  setTimeoutId,
 } from "../redux/actions";
 
 const RESET_PASSWORD = gql`
@@ -44,6 +45,10 @@ export default function ResetPassword() {
   );
   const [email, setEmail] = useState(
     useSelector((state: { email: any }) => state.email)
+  );
+
+  const [timeoutId] = useState(
+    useSelector((state: { timeoutId: any }) => state.timeoutId)
   );
 
   const setNotificationArgs = {
