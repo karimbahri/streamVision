@@ -557,8 +557,9 @@ input:-webkit-autofill:active {
 .submit-btn:hover {
   /* background-color: #c59e04e7;
   color: #2e2121; */
-  background: linear-gradient(60deg, red, yellow);
-  color: white;
+  /* background: linear-gradient(60deg, red, yellow); */
+  /* background-color: #f7d346e7; */
+  color: #e90303;
 }
 
 .login__form .reset-pass {
