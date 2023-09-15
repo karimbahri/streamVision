@@ -17,6 +17,7 @@ import client from "./apollo-client";
 import { useState } from "react";
 import ResetPassword from "./components/resetPassword";
 import CodeVerification from "./components/codeVerification";
+import MovieUploader from "./components/movieUploader";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => isLoggedInFx());
@@ -65,6 +66,7 @@ export default function App() {
             <Route path="/reset-account" element={<Reset />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/code-verification" element={<CodeVerification />} />
+            <Route path="/upload" element={<MovieUploader />} />
           </Routes>
           {/* <Movies />
           <MoviesSlider /> */}
