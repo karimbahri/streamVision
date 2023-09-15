@@ -96,6 +96,7 @@ export const LOGIN = {
         fullName: user.fullName,
         email: user.email,
         username: user.userName,
+        isAdmin: user.isAdmin,
       },
       process.env.ACCESS_TOKEN_SECRET || "secret_key",
       { expiresIn: "1d" }
