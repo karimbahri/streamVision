@@ -26,7 +26,11 @@ function MovieSelector(props: any) {
     if (token === "undefined") navigate("/");
     else {
       try {
-        // const decode: { isAdmin: boolean } = jwt_decode<TokenData>(token);
+        interface TokenData {
+          isAdmin: boolean;
+        }
+
+        const decode: { isAdmin: boolean } = jwt_decode<TokenData>(token);
         const { isAdmin }: { isAdmin: boolean } = jwt_decode(token);
         // if (!decode.isAdmin) navigate("/");
         if (!isAdmin) navigate("/");
