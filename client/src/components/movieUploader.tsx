@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 function MovieSelector(props: any) {
-  const [video, setVideo] = useState<File>();
+  // const [video, setVideo] = useState<File>();
   const [isLoading, setIsLoading] = useState(false);
   const [notificationClassValue, setNotificationClassValue] = useState("");
   const [notificationValue, setNotificationValue] = useState("");
@@ -35,10 +35,10 @@ function MovieSelector(props: any) {
     }
   }, []);
 
-  const supaBase = createClient(
-    import.meta.env.VITE_SUPABASE_URL,
-    import.meta.env.VITE_SUPABASE_KEY
-  );
+  // const supaBase = createClient(
+  //   import.meta.env.VITE_SUPABASE_URL,
+  //   import.meta.env.VITE_SUPABASE_KEY
+  // );
 
   return (
     <div className="movie-uploader">
@@ -52,32 +52,18 @@ function MovieSelector(props: any) {
           id="inputVideo-tag"
           accept="video/mp4"
           onChange={(event) => {
-            if (event.target.files) setVideo(event.target.files[0]);
+            if (event.target.files) props.setVideo(event.target.files[0]);
           }}
         />
-        <p>{video?.name}</p>
+        <p>{props.video?.name}</p>
       </label>
-      {isLoading && <Loader />}
+      {/* {isLoading && <Loader />} */}
       <a
         className="submit-btn"
         onClick={async () => {
-          if (video) {
+          if (props.video) {
             setIsLoading(true);
-            const videoTitle = `${uuidv4()}.mp4`;
-            const { error, data } = await supaBase.storage
-              .from("movies")
-              .upload(videoTitle, video);
-            console.log(videoTitle);
-            if (error) {
-              setNotificationArgs.notificationClassValue =
-                "notification-appear notification-failure";
-              setNotificationArgs.notificationValue = error.message;
-              setNotification(setNotificationArgs);
-              setIsLoading(false);
-            } else {
-              setIsLoading(false);
-              props.setIsUploaded(true);
-            }
+            props.setIsUploaded(true);
           } else {
             setNotificationArgs.notificationClassValue =
               "notification-appear notification-failure";
@@ -96,18 +82,24 @@ function MovieSelector(props: any) {
   );
 }
 
-function MovieInfoSaver() {
+function MovieInfoSaver(props: any) {
   const [movieTitle, setMovieTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("movie");
   const [movieThumb, setMovieThumb] = useState<File>();
   const [notificationClassValue, setNotificationClassValue] = useState("");
   const [notificationValue, setNotificationValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const setNotificationArgs = {
     notificationClassValue,
     setNotificationClassValue,
     notificationValue,
     setNotificationValue,
   };
+
+  const supaBase = createClient(
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_KEY
+  );
 
   return (
     <div className="movieInfo-saver">
@@ -151,18 +143,46 @@ function MovieInfoSaver() {
           className="submit-btn"
           onClick={async () => {
             if (!movieTitle || !movieThumb || !category) {
+              console.log(category);
               setNotificationArgs.notificationClassValue =
                 "notification-appear notification-failure";
               setNotificationArgs.notificationValue =
                 "Please fill all the fields";
               setNotification(setNotificationArgs);
             } else {
+              setIsLoading(true);
+              const videoTitle = `${uuidv4()}.mp4`;
+              const { error } = await supaBase.storage
+                .from("movies")
+                .upload(videoTitle, props.video);
+              console.log(videoTitle);
+              if (error) {
+                setNotificationArgs.notificationClassValue =
+                  "notification-appear notification-failure";
+                setNotificationArgs.notificationValue = error.message;
+                setNotification(setNotificationArgs);
+                setIsLoading(false);
+              } else {
+                const { error } = await supaBase.storage
+                  .from("thumbnails")
+                  .upload("movieThumb.png", movieThumb);
+                if (error) {
+                  setNotificationArgs.notificationClassValue =
+                    "notification-appear notification-failure";
+                  setNotificationArgs.notificationValue = error.message;
+                  setNotification(setNotificationArgs);
+                  setIsLoading(false);
+                } else {
+                  setIsLoading(false);
+                }
+              }
             }
           }}
         >
           Save
         </a>
       </form>
+      {isLoading && <Loader />}
       <Notification
         classValue={notificationClassValue}
         message={notificationValue}
@@ -172,11 +192,16 @@ function MovieInfoSaver() {
 }
 
 export default function MovieUploader() {
+  const [video, setVideo] = useState<File>();
   const [isUploaded, setIsUploaded] = useState(false);
 
   return !isUploaded ? (
-    <MovieSelector setIsUploaded={setIsUploaded} />
+    <MovieSelector
+      setIsUploaded={setIsUploaded}
+      setVideo={setVideo}
+      video={video}
+    />
   ) : (
-    <MovieInfoSaver />
+    <MovieInfoSaver setVideo={setVideo} video={video} />
   );
 }
