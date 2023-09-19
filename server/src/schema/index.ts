@@ -9,6 +9,7 @@ import {
   CHECK_VERIFICATION_CODE,
 } from "./mutations/user";
 import GET_ALL_USERS from "./queries/user";
+import { SAVE_MOVIES } from "./mutations/shows";
 
 const rootQuery = new GraphQLObjectType({
   name: "RootQuery",
@@ -27,6 +28,7 @@ const mutation = new GraphQLObjectType({
     updateUser: UPDATE_USER,
     resetUser: RESET_USER,
     chaeckVerificationUser: CHECK_VERIFICATION_CODE,
+    saveShow: SAVE_MOVIES,
   },
 });
 
