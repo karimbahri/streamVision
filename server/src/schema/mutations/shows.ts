@@ -2,7 +2,7 @@ import { GraphQLBoolean, GraphQLID, GraphQLString } from "graphql";
 import { Shows } from "../../entities";
 import ShowType from "../typedefs/shows";
 
-export const CREATE_USER = {
+export const SAVE_MOVIEs = {
   type: ShowType,
   args: {
     content: { type: GraphQLString },
