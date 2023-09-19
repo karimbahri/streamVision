@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLID, GraphQLString } from "graphql";
 
-const ShowsType = new GraphQLObjectType({
+const ShowType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
     id: { type: GraphQLID },
@@ -10,4 +10,4 @@ const ShowsType = new GraphQLObjectType({
   }),
 });
 
-export default ShowsType;
+export default ShowType;
