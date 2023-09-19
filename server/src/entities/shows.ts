@@ -5,8 +5,8 @@ export default class Shows extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: "bytea", nullable: true })
-  content!: Buffer;
+  @Column()
+  content!: string;
 
   @Column()
   title!: string;
@@ -15,5 +15,5 @@ export default class Shows extends BaseEntity {
   description!: string;
 
   @Column()
-  rating!: string;
+  thumbnail!: string;
 }
