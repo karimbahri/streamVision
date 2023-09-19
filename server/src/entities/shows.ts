@@ -13,4 +13,13 @@ export default class Shows extends BaseEntity {
 
   @Column()
   thumbnail!: string;
+
+  @Column()
+  category!: string;
+
+  @Column()
+  episodes!: number;
+
+  @Column()
+  seasons!: number;
 }
