@@ -12,8 +12,5 @@ export default class Shows extends BaseEntity {
   title!: string;
 
   @Column()
-  description!: string;
-
-  @Column()
   thumbnail!: string;
 }
