@@ -32,12 +32,12 @@ export const SAVE_MOVIES = {
 };
 
 export const DELETE_MOVIE = {
-  type: GraphQLString,
+  type: ShowType,
   args: {
-    id: { type: GraphQLID },
+    content: { type: GraphQLString },
   },
   async resolve(parent: any, args: any) {
-    const { id } = args;
-    await Shows.delete(id);
+    const { content } = args;
+    await Shows.delete({ content });
   },
 };
