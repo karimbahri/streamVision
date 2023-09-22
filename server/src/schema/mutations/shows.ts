@@ -16,6 +16,8 @@ export const SAVE_MOVIES = {
     let { content, title, thumbnail, category, seasons, episodes } = args;
 
     title = title[0].toUpperCase() + title.slice(1).toLowerCase();
+    seasons = !seasons ? 0 : seasons;
+    episodes = !episodes ? 0 : episodes;
 
     await Shows.insert({
       content,
