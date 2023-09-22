@@ -29,6 +29,14 @@ const SAVESHOW_MUTATION = gql`
   }
 `;
 
+const DELETE_MOVIE_MUTATION = gql`
+  mutation deleteMovie($content: String!) {
+    deleteMovie(content: $content) {
+      id
+    }
+  }
+`;
+
 function MovieSelector(props: any) {
   // const [video, setVideo] = useState<File>();
   const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +132,20 @@ function MovieInfoSaver(props: any) {
 
   const navigate = useNavigate();
 
-  const [saveShow, { error }] = useMutation(SAVESHOW_MUTATION, {
+  const [saveShow /*, { error }*/] = useMutation(SAVESHOW_MUTATION, {
+    onCompleted: (data) => {
+      console.log("data : ", data);
+      client.resetStore();
+    },
+    // onError: (error) => {
+    //   setNotificationArgs.notificationClassValue =
+    //     "notification-appear notification-failure";
+    //   setNotificationArgs.notificationValue = error.message;
+    //   setNotification(setNotificationArgs);
+    // },
+  });
+
+  const [deleteMovie, { error }] = useMutation(DELETE_MOVIE_MUTATION, {
     onCompleted: (data) => {
       console.log("data : ", data);
       client.resetStore();
@@ -136,6 +157,16 @@ function MovieInfoSaver(props: any) {
       setNotification(setNotificationArgs);
     },
   });
+
+  const supaBaseUpload = (buckets: string, title: string, file: any) => {
+    return new Promise(async (resolve, reject) => {
+      const { data, error } = await supaBase.storage
+        .from(buckets)
+        .upload(title, file);
+      if (data) resolve(data);
+      if (error) reject(error);
+    });
+  };
 
   return (
     <div className="movieInfo-saver">
@@ -217,10 +248,12 @@ function MovieInfoSaver(props: any) {
               const thumbTitle = `${uuidv4()}.png`;
               setIsLoading(true);
               const results = await Promise.all([
-                supaBase.storage.from("movies").upload(videoTitle, props.video),
-                supaBase.storage
-                  .from("thumbnails")
-                  .upload(thumbTitle, movieThumb),
+                supaBaseUpload("movies", videoTitle, props.video),
+                supaBaseUpload("thumbnails", thumbTitle, movieThumb),
+                // supaBase.storage.from("movies").upload(videoTitle, props.video),
+                // supaBase.storage
+                //   .from("thumbnails")
+                //   .upload(thumbTitle, movieThumb),
                 saveShow({
                   variables: {
                     content: videoTitle,
@@ -235,8 +268,8 @@ function MovieInfoSaver(props: any) {
                   navigate("/");
                 })
                 .catch((error) => {
+                  deleteMovie({ variables: { content: videoTitle } });
                   setIsLoading(false);
-                  console.log(error);
                   setNotificationArgs.notificationClassValue =
                     "notification-appear notification-failure";
                   setNotificationArgs.notificationValue = error.message;
