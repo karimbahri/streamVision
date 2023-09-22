@@ -1,5 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import client from "../apollo-client";
 import * as Icon from "react-bootstrap-icons";
 import Notification from "./notification";
 import Loader from "./loader";
@@ -7,6 +10,24 @@ import { setNotification } from "../utils";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+
+const SAVESHOW_MUTATION = gql`
+  mutation saveShow(
+    $title: String!
+    $thumbnail: String!
+    $content: String!
+    $category: String!
+  ) {
+    saveShow(
+      title: $title
+      thumbnail: $thumbnail
+      content: $content
+      category: $category
+    ) {
+      id
+    }
+  }
+`;
 
 function MovieSelector(props: any) {
   // const [video, setVideo] = useState<File>();
@@ -101,6 +122,21 @@ function MovieInfoSaver(props: any) {
     import.meta.env.VITE_SUPABASE_KEY
   );
 
+  const navigate = useNavigate();
+
+  const [saveShow, { error }] = useMutation(SAVESHOW_MUTATION, {
+    onCompleted: (data) => {
+      console.log("data : ", data);
+      client.resetStore();
+    },
+    onError: (error) => {
+      setNotificationArgs.notificationClassValue =
+        "notification-appear notification-failure";
+      setNotificationArgs.notificationValue = error.message;
+      setNotification(setNotificationArgs);
+    },
+  });
+
   return (
     <div className="movieInfo-saver">
       <h1 className="movieInfo-saver__header">Upload Movie</h1>
@@ -150,32 +186,63 @@ function MovieInfoSaver(props: any) {
                 "Please fill all the fields";
               setNotification(setNotificationArgs);
             } else {
-              setIsLoading(true);
+              // setIsLoading(true);
+              // const videoTitle = `${uuidv4()}.mp4`;
+              // const { error } = await supaBase.storage
+              //   .from("movies")
+              //   .upload(videoTitle, props.video);
+              // console.log(videoTitle);
+              // if (error) {
+              //   setNotificationArgs.notificationClassValue =
+              //     "notification-appear notification-failure";
+              //   setNotificationArgs.notificationValue = error.message;
+              //   setNotification(setNotificationArgs);
+              //   setIsLoading(false);
+              // } else {
+              //   const thumbTitle = `${uuidv4()}.png`;
+              //   const { error } = await supaBase.storage
+              //     .from("thumbnails")
+              //     .upload(thumbTitle, movieThumb);
+              //   if (error) {
+              //     setNotificationArgs.notificationClassValue =
+              //       "notification-appear notification-failure";
+              //     setNotificationArgs.notificationValue = error.message;
+              //     setNotification(setNotificationArgs);
+              //     setIsLoading(false);
+              //   } else {
+              //     setIsLoading(false);
+              //   }
+              // }
               const videoTitle = `${uuidv4()}.mp4`;
-              const { error } = await supaBase.storage
-                .from("movies")
-                .upload(videoTitle, props.video);
-              console.log(videoTitle);
-              if (error) {
-                setNotificationArgs.notificationClassValue =
-                  "notification-appear notification-failure";
-                setNotificationArgs.notificationValue = error.message;
-                setNotification(setNotificationArgs);
-                setIsLoading(false);
-              } else {
-                const { error } = await supaBase.storage
+              const thumbTitle = `${uuidv4()}.png`;
+              setIsLoading(true);
+              const results = await Promise.all([
+                supaBase.storage.from("movies").upload(videoTitle, props.video),
+                supaBase.storage
                   .from("thumbnails")
-                  .upload("movieThumb.png", movieThumb);
-                if (error) {
+                  .upload(thumbTitle, movieThumb),
+                saveShow({
+                  variables: {
+                    content: videoTitle,
+                    thumbnail: thumbTitle,
+                    title: movieTitle,
+                    category,
+                  },
+                }),
+              ])
+                .then(() => {
+                  setIsLoading(false);
+                  navigate("/");
+                })
+                .catch((error) => {
+                  setIsLoading(false);
+                  console.log(error);
                   setNotificationArgs.notificationClassValue =
                     "notification-appear notification-failure";
                   setNotificationArgs.notificationValue = error.message;
                   setNotification(setNotificationArgs);
-                  setIsLoading(false);
-                } else {
-                  setIsLoading(false);
-                }
-              }
+                });
+              console.log(results);
             }
           }}
         >
