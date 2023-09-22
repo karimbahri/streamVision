@@ -1,4 +1,4 @@
-import { GraphQLInt, GraphQLString } from "graphql";
+import { GraphQLID, GraphQLInt, GraphQLString } from "graphql";
 import { Shows } from "../../entities";
 import ShowType from "../typedefs/shows";
 
@@ -28,5 +28,16 @@ export const SAVE_MOVIES = {
       episodes,
     });
     return args;
+  },
+};
+
+export const DELETE_MOVIE = {
+  type: GraphQLString,
+  args: {
+    id: { type: GraphQLID },
+  },
+  async resolve(parent: any, args: any) {
+    const { id } = args;
+    await Shows.delete(id);
   },
 };
