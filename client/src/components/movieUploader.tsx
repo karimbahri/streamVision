@@ -38,8 +38,6 @@ const DELETE_MOVIE_MUTATION = gql`
 `;
 
 function MovieSelector(props: any) {
-  // const [video, setVideo] = useState<File>();
-  const [isLoading, setIsLoading] = useState(false);
   const [notificationClassValue, setNotificationClassValue] = useState("");
   const [notificationValue, setNotificationValue] = useState("");
   const setNotificationArgs = {
@@ -64,11 +62,6 @@ function MovieSelector(props: any) {
     }
   }, []);
 
-  // const supaBase = createClient(
-  //   import.meta.env.VITE_SUPABASE_URL,
-  //   import.meta.env.VITE_SUPABASE_KEY
-  // );
-
   return (
     <div className="movie-uploader">
       <label htmlFor="inputVideo-tag" className="inputVideo-label">
@@ -86,12 +79,10 @@ function MovieSelector(props: any) {
         />
         <p>{props.video?.name}</p>
       </label>
-      {/* {isLoading && <Loader />} */}
       <a
         className="submit-btn"
         onClick={async () => {
           if (props.video) {
-            setIsLoading(true);
             props.setIsUploaded(true);
           } else {
             setNotificationArgs.notificationClassValue =
@@ -137,12 +128,6 @@ function MovieInfoSaver(props: any) {
       console.log("data : ", data);
       client.resetStore();
     },
-    // onError: (error) => {
-    //   setNotificationArgs.notificationClassValue =
-    //     "notification-appear notification-failure";
-    //   setNotificationArgs.notificationValue = error.message;
-    //   setNotification(setNotificationArgs);
-    // },
   });
 
   const [deleteMovie, { error }] = useMutation(DELETE_MOVIE_MUTATION, {
@@ -217,43 +202,12 @@ function MovieInfoSaver(props: any) {
                 "Please fill all the fields";
               setNotification(setNotificationArgs);
             } else {
-              // setIsLoading(true);
-              // const videoTitle = `${uuidv4()}.mp4`;
-              // const { error } = await supaBase.storage
-              //   .from("movies")
-              //   .upload(videoTitle, props.video);
-              // console.log(videoTitle);
-              // if (error) {
-              //   setNotificationArgs.notificationClassValue =
-              //     "notification-appear notification-failure";
-              //   setNotificationArgs.notificationValue = error.message;
-              //   setNotification(setNotificationArgs);
-              //   setIsLoading(false);
-              // } else {
-              //   const thumbTitle = `${uuidv4()}.png`;
-              //   const { error } = await supaBase.storage
-              //     .from("thumbnails")
-              //     .upload(thumbTitle, movieThumb);
-              //   if (error) {
-              //     setNotificationArgs.notificationClassValue =
-              //       "notification-appear notification-failure";
-              //     setNotificationArgs.notificationValue = error.message;
-              //     setNotification(setNotificationArgs);
-              //     setIsLoading(false);
-              //   } else {
-              //     setIsLoading(false);
-              //   }
-              // }
               const videoTitle = `${uuidv4()}.mp4`;
               const thumbTitle = `${uuidv4()}.png`;
               setIsLoading(true);
               const results = await Promise.all([
                 supaBaseUpload("movies", videoTitle, props.video),
                 supaBaseUpload("thumbnails", thumbTitle, movieThumb),
-                // supaBase.storage.from("movies").upload(videoTitle, props.video),
-                // supaBase.storage
-                //   .from("thumbnails")
-                //   .upload(thumbTitle, movieThumb),
                 saveShow({
                   variables: {
                     content: videoTitle,
