@@ -5,7 +5,7 @@ export const LOGIN_MUTATION = gql`
     login(email: $email, password: $password)
   }
 `;
-//
+
 export const SIGNUP_MUTATION = gql`
   mutation createUser(
     $userName: String!
@@ -27,7 +27,7 @@ export const SIGNUP_MUTATION = gql`
     }
   }
 `;
-//
+
 export const RESET_USER = gql`
   mutation resetUser($email: String!) {
     resetUser(email: $email) {
@@ -35,7 +35,7 @@ export const RESET_USER = gql`
     }
   }
 `;
-//
+
 export const RESET_PASSWORD = gql`
   mutation updateUserPassword(
     $email: String!
@@ -53,7 +53,7 @@ export const RESET_PASSWORD = gql`
     }
   }
 `;
-//
+
 export const CHECK_VERIFICATION_CODE = gql`
   mutation chaeckVerificationUser($email: String!, $code: String!) {
     chaeckVerificationUser(email: $email, code: $code)
