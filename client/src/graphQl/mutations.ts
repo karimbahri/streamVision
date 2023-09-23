@@ -53,7 +53,7 @@ export const RESET_PASSWORD = gql`
     }
   }
 `;
-
+//
 export const CHECK_VERIFICATION_CODE = gql`
   mutation chaeckVerificationUser($email: String!, $code: String!) {
     chaeckVerificationUser(email: $email, code: $code)
