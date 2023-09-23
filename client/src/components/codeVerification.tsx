@@ -1,19 +1,13 @@
 import * as Icon from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import client from "../apollo-client";
 import { setNotification } from "../utils";
 import Notification from "./notification";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCode as redux_setCode, setReset } from "../redux/actions";
-
-const CHECK_VERIFICATION_CODE = gql`
-  mutation chaeckVerificationUser($email: String!, $code: String!) {
-    chaeckVerificationUser(email: $email, code: $code)
-  }
-`;
+import { CHECK_VERIFICATION_CODE } from "../graphQl/mutations";
 
 export default function CodeVerification() {
   const [code, setCode] = useState("");
