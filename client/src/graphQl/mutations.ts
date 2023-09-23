@@ -27,7 +27,7 @@ export const SIGNUP_MUTATION = gql`
     }
   }
 `;
-
+//
 export const RESET_USER = gql`
   mutation resetUser($email: String!) {
     resetUser(email: $email) {
