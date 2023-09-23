@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { setNotification } from "../utils";
 import Notification from "./notification";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import client from "../apollo-client";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,24 +12,7 @@ import {
   setEmail as redux_setEmail,
   setReset,
 } from "../redux/actions";
-
-const RESET_PASSWORD = gql`
-  mutation updateUserPassword(
-    $email: String!
-    $code: String!
-    $newPassword: String!
-    $oldPassword: String!
-  ) {
-    updateUserPassword(
-      email: $email
-      code: $code
-      newPassword: $newPassword
-      oldPassword: $oldPassword
-    ) {
-      id
-    }
-  }
-`;
+import { RESET_PASSWORD } from "../graphQl/mutations";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
