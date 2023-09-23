@@ -77,3 +77,11 @@ export const SAVESHOW_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_MOVIE_MUTATION = gql`
+  mutation deleteMovie($content: String!) {
+    deleteMovie(content: $content) {
+      id
+    }
+  }
+`;
