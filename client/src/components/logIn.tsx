@@ -1,18 +1,12 @@
 import * as Icon from "react-bootstrap-icons";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import client from "../apollo-client";
 import PasswordInput from "./passwordInput";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { /*isLoggedIn,*/ setNotification } from "../utils";
+import { setNotification } from "../utils";
 import Notification from "./notification";
-
-const LOGIN_MUTATION = gql`
-  mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password)
-  }
-`;
+import { LOGIN_MUTATION } from "../graphQl/mutations";
 
 export default function Login(props: any) {
   const [email, setEmail] = useState("");
@@ -28,17 +22,6 @@ export default function Login(props: any) {
     notificationValue,
     setNotificationValue,
   };
-
-  // const setNotification = (
-  //   notificationClassValue: any,
-  //   notificationValue: any
-  // ) => {
-  //   setNotificationClassValue(notificationClassValue);
-  //   setNotificationValue(notificationValue);
-  //   setTimeout(() => {
-  //     setNotificationClassValue("");
-  //   }, 3000);
-  // };
 
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
@@ -83,12 +66,6 @@ export default function Login(props: any) {
         <div className="input-field">
           <Icon.LockFill className="login-icon pass-label" />
           <PasswordInput placeholder="Password" assignPassword={setPassword} />
-          {/* <input
-            type="password"
-            placeholder="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          /> */}
         </div>
         <Link to="/reset-account" className="reset-pass">
           Forgot password?
