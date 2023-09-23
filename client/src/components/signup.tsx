@@ -2,32 +2,10 @@ import PasswordInput from "./passwordInput";
 import { useMutation } from "@apollo/react-hooks";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import gql from "graphql-tag";
 import client from "../apollo-client";
 import Notification from "./notification";
 import { setNotification } from "../utils";
-
-const SIGNUP_MUTATION = gql`
-  mutation createUser(
-    $userName: String!
-    $password: String!
-    $passwordConfirmation: String!
-    $fullName: String!
-    $email: String!
-    $birthday: String!
-  ) {
-    createUser(
-      userName: $userName
-      password: $password
-      passwordConfirmation: $passwordConfirmation
-      fullName: $fullName
-      email: $email
-      birthday: $birthday
-    ) {
-      id
-    }
-  }
-`;
+import { SIGNUP_MUTATION } from "../graphQl/mutations";
 
 export default function SignUp(props: any) {
   const [fullName, setFullName] = useState("");
