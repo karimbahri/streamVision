@@ -59,3 +59,21 @@ export const CHECK_VERIFICATION_CODE = gql`
     chaeckVerificationUser(email: $email, code: $code)
   }
 `;
+
+export const SAVESHOW_MUTATION = gql`
+  mutation saveShow(
+    $title: String!
+    $thumbnail: String!
+    $content: String!
+    $category: String!
+  ) {
+    saveShow(
+      title: $title
+      thumbnail: $thumbnail
+      content: $content
+      category: $category
+    ) {
+      id
+    }
+  }
+`;
