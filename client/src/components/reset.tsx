@@ -1,6 +1,5 @@
 import * as Icon from "react-bootstrap-icons";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import client from "../apollo-client";
 import Notification from "./notification";
 import { setNotification } from "../utils";
@@ -8,14 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setReset, setEmail as redux_setEmail } from "../redux/actions";
-
-const RESET_USER = gql`
-  mutation resetUser($email: String!) {
-    resetUser(email: $email) {
-      id
-    }
-  }
-`;
+import { RESET_USER } from "../graphQl/mutations";
 
 export default function Reset() {
   const [notificationClassValue, setNotificationClassValue] = useState("");
