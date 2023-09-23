@@ -1,7 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import client from "../apollo-client";
 import * as Icon from "react-bootstrap-icons";
 import Notification from "./notification";
@@ -10,32 +9,7 @@ import { setNotification } from "../utils";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-
-const SAVESHOW_MUTATION = gql`
-  mutation saveShow(
-    $title: String!
-    $thumbnail: String!
-    $content: String!
-    $category: String!
-  ) {
-    saveShow(
-      title: $title
-      thumbnail: $thumbnail
-      content: $content
-      category: $category
-    ) {
-      id
-    }
-  }
-`;
-
-const DELETE_MOVIE_MUTATION = gql`
-  mutation deleteMovie($content: String!) {
-    deleteMovie(content: $content) {
-      id
-    }
-  }
-`;
+import { DELETE_MOVIE_MUTATION, SAVESHOW_MUTATION } from "../graphQl/mutations";
 
 function MovieSelector(props: any) {
   const [notificationClassValue, setNotificationClassValue] = useState("");
@@ -54,7 +28,6 @@ function MovieSelector(props: any) {
     else {
       try {
         const { isAdmin }: { isAdmin: boolean } = jwt_decode(token);
-        // if (!decode.isAdmin) navigate("/");
         if (!isAdmin) navigate("/");
       } catch (error) {
         console.error("Error decoding JWT:", error);
