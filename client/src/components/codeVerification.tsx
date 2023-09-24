@@ -1,4 +1,4 @@
-import * as Icon from "react-bootstrap-icons";
+import { LockFill } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import client from "../apollo-client";
@@ -79,7 +79,7 @@ export default function CodeVerification() {
         }}
       >
         <div className="input-field">
-          <Icon.LockFill className="login-icon pass-label" />
+          <LockFill className="login-icon pass-label" />
           <input
             type="text"
             placeholder="Verification Code"
