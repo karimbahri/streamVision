@@ -1,4 +1,4 @@
-import * as Icon from "react-bootstrap-icons";
+import { LockFill } from "react-bootstrap-icons";
 import PasswordInput from "./passwordInput";
 import { useEffect, useState } from "react";
 import { setNotification } from "../utils";
@@ -78,11 +78,11 @@ export default function ResetPassword() {
       <h1 className="login__header">Reset password</h1>
       <form className="login__form">
         <div className="input-field">
-          <Icon.LockFill className="login-icon pass-label" />
+          <LockFill className="login-icon pass-label" />
           <PasswordInput placeholder="Password" assignPassword={setPassword} />
         </div>
         <div className="input-field">
-          <Icon.LockFill className="login-icon pass-label" />
+          <LockFill className="login-icon pass-label" />
           <PasswordInput
             placeholder="PasswordConfirmation"
             assignPassword={setPasswordConfirmation}
