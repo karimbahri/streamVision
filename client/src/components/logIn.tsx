@@ -1,4 +1,4 @@
-import * as Icon from "react-bootstrap-icons";
+import { PeopleFill, LockFill } from "react-bootstrap-icons";
 import { useMutation } from "@apollo/react-hooks";
 import client from "../apollo-client";
 import PasswordInput from "./passwordInput";
@@ -55,7 +55,7 @@ export default function Login(props: any) {
       <h1 className="login__header">Welcome back</h1>
       <form className="login__form">
         <div className="input-field">
-          <Icon.PeopleFill className="login-icon email-label" />
+          <PeopleFill className="login-icon email-label" />
           <input
             type="email"
             placeholder="Email"
@@ -64,7 +64,7 @@ export default function Login(props: any) {
           />
         </div>
         <div className="input-field">
-          <Icon.LockFill className="login-icon pass-label" />
+          <LockFill className="login-icon pass-label" />
           <PasswordInput placeholder="Password" assignPassword={setPassword} />
         </div>
         <Link to="/reset-account" className="reset-pass">
