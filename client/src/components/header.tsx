@@ -1,4 +1,4 @@
-import * as Icon from "react-bootstrap-icons";
+import { Search } from "react-bootstrap-icons";
 
 export default function Header() {
   return (
@@ -12,7 +12,7 @@ export default function Header() {
       <div className="header__content">
         <div className="header__search">
           {/* <i className="bi bi-search"></i> */}
-          <Icon.Search className={"bi bi-search"} />
+          <Search className={"bi bi-search"} />
           <input
             placeholder="Search"
             type="text"
