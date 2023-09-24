@@ -20,6 +20,20 @@ export const isLoggedIn = () => {
   }
 };
 
+export const isAdmin = () => {
+  const token = localStorage.token;
+  if (token === "undefined") return false;
+  else {
+    try {
+      const { isAdmin }: { isAdmin: boolean } = jwtDecode(token);
+      if (!isAdmin) return false;
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+};
+
 export const setNotification = (setNotificationArgs: {
   notificationClassValue?: string;
   setNotificationClassValue?: Function;
