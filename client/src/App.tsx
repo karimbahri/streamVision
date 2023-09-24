@@ -9,7 +9,8 @@ import Login from "./components/logIn";
 import Reset from "./components/reset";
 import SignUp from "./components/signup";
 import { Routes, Route } from "react-router-dom";
-import { isLoggedIn as isLoggedInFx } from "./utils";
+import { isAdmin, isLoggedIn as isLoggedInFx } from "./utils";
+import * as Icon from "react-bootstrap-icons";
 // import { ApolloProvider } from "@apollo/client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
@@ -26,7 +27,7 @@ export default function App() {
       <Header />
       <main className={"main"}>
         <header className="main__header">
-          <button className="user-btn">
+          {/* <button className="user-btn">
             <i className="bi bi-person-circle"></i>
             {!isLoggedIn ? (
               <Link to={"/login"}>{"Login"}</Link>
@@ -41,8 +42,35 @@ export default function App() {
                 {"Logout"}
               </Link>
             )}
-            {/* <Link to={"/login"}>{!isLoggedIn ? "Login" : "Logout"}</Link> */}
-          </button>
+          </button> */}
+
+          {!isLoggedIn ? (
+            <Link className={"user-btn"} to={"/login"}>
+              <Icon.PersonCircle className="icon" />
+              {"Login"}
+            </Link>
+          ) : (
+            <Link
+              className={"user-btn login-btn"}
+              to={"/"}
+              onClick={() => {
+                localStorage.token = undefined;
+                setIsLoggedIn(false);
+              }}
+            >
+              <Icon.PersonCircle className="icon" />
+              {"Logout"}
+            </Link>
+          )}
+
+          {isAdmin() ? (
+            <Link className="user-btn upload-btn" to={"/upload"}>
+              <Icon.CloudArrowUp className="icon" />
+              {"Upload"}
+            </Link>
+          ) : (
+            ""
+          )}
         </header>
         <div className="main__content">
           <Routes>
