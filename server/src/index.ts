@@ -6,12 +6,18 @@ import schema from "./schema";
 import { Shows, Users } from "./entities";
 import * as dotenv from "dotenv";
 import connectToDB from "./database/connection";
+import compression from "compression";
 
 (async () => {
   dotenv.config({ path: ".env" });
 
   connectToDB();
   const app = express();
+  app.use(
+    compression({
+      level: 6,
+    })
+  );
   app.use(cors());
   app.use(express.json());
   app.use(
