@@ -228,26 +228,45 @@ MAIN
   display: flex;
 }
 
+.icon {
+  margin: -0.4rem;
+  margin-right: 0.2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .main .main__header .user-btn {
   position: absolute;
   padding: 0.85em 1.7em;
   font-family: "Gill Sans", sans-serif;
+  font-size: 0.84rem;
   font-weight: bold;
   background-color: #ffce00;
   border: none;
+  color: black;
+  text-decoration: none;
   border-radius: 11px;
   transition: 0.3s;
   cursor: pointer;
 }
 
-.main .main__header .user-btn > * {
-  color: black;
-  text-decoration: none;
+.main .main__header .login-btn .icon {
+  font-size: 1.1rem;
+  transform: translateY(-2px);
 }
 
 .main .main__header .user-btn:hover {
   background-color: #ffcf11e7;
   font-size: 0.84rem;
+  transition: 0.3s;
+}
+
+.main .main__header .upload-btn {
+  right: 20px;
+}
+
+.main .main__header .upload-btn:hover {
+  background-color: #ffcf11e7;
   transition: 0.3s;
 }
 
