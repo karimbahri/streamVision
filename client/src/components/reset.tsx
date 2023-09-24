@@ -1,4 +1,4 @@
-import * as Icon from "react-bootstrap-icons";
+import { PeopleFill } from "react-bootstrap-icons";
 import { useMutation } from "@apollo/react-hooks";
 import client from "../apollo-client";
 import Notification from "./notification";
@@ -58,7 +58,7 @@ export default function Reset() {
       <h1 className="login__header">Reset your password</h1>
       <form className="login__form">
         <div className="input-field">
-          <Icon.PeopleFill className="login-icon email-label" />
+          <PeopleFill className="login-icon email-label" />
           <input
             type="email"
             placeholder="Email"
