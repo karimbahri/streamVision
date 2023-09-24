@@ -10,7 +10,8 @@ import Reset from "./components/reset";
 import SignUp from "./components/signup";
 import { Routes, Route } from "react-router-dom";
 import { isAdmin, isLoggedIn as isLoggedInFx } from "./utils";
-import * as Icon from "react-bootstrap-icons";
+// import * as Icon from "react-bootstrap-icons";
+import { PersonCircle, CloudArrowUp } from "react-bootstrap-icons";
 // import { ApolloProvider } from "@apollo/client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
@@ -46,7 +47,7 @@ export default function App() {
 
           {!isLoggedIn ? (
             <Link className={"user-btn"} to={"/login"}>
-              <Icon.PersonCircle className="icon" />
+              <PersonCircle className="icon" />
               {"Login"}
             </Link>
           ) : (
@@ -58,14 +59,14 @@ export default function App() {
                 setIsLoggedIn(false);
               }}
             >
-              <Icon.PersonCircle className="icon" />
+              <PersonCircle className="icon" />
               {"Logout"}
             </Link>
           )}
 
           {isAdmin() ? (
             <Link className="user-btn upload-btn" to={"/upload"}>
-              <Icon.CloudArrowUp className="icon" />
+              <CloudArrowUp className="icon" />
               {"Upload"}
             </Link>
           ) : (
