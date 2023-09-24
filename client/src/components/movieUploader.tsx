@@ -2,13 +2,13 @@ import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import client from "../apollo-client";
-import * as Icon from "react-bootstrap-icons";
+// import * as Icon from "react-bootstrap-icons";
+import { CloudArrowUpFill } from "react-bootstrap-icons";
 import Notification from "./notification";
 import Loader from "./loader";
-import { setNotification } from "../utils";
+import { isAdmin, setNotification } from "../utils";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import { DELETE_MOVIE_MUTATION, SAVESHOW_MUTATION } from "../graphQl/mutations";
 
 function MovieSelector(props: any) {
@@ -23,22 +23,13 @@ function MovieSelector(props: any) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.token;
-    if (token === "undefined") navigate("/");
-    else {
-      try {
-        const { isAdmin }: { isAdmin: boolean } = jwt_decode(token);
-        if (!isAdmin) navigate("/");
-      } catch (error) {
-        console.error("Error decoding JWT:", error);
-      }
-    }
+    if (!isAdmin()) navigate("/");
   }, []);
 
   return (
     <div className="movie-uploader">
       <label htmlFor="inputVideo-tag" className="inputVideo-label">
-        <Icon.CloudArrowUpFill className={"cloud-icon"} />
+        <CloudArrowUpFill className={"cloud-icon"} />
         <h1>Drag and drop to upload video</h1>
         <h1>OR</h1>
         <h1 className="browse-btn">Browse video</h1>
