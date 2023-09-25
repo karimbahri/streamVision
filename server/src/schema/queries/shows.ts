@@ -1,15 +1,36 @@
 import { GraphQLList, GraphQLString } from "graphql";
-import UserType from "../typedefs/user";
 import { Shows } from "../../entities";
+import ShowType from "../typedefs/shows";
 
-const GET_MOVIES_BY_CATEGORY = {
-  type: new GraphQLList(UserType),
-  args: {
-    category: { type: GraphQLString },
-  },
+export const GET_LATEST_MOVIES = {
+  type: new GraphQLList(ShowType),
   resolve() {
-    return Shows.find();
+    return Shows.find({
+      order: {
+        id: "DESC",
+      },
+      take: 15,
+    });
   },
 };
 
-export default GET_MOVIES_BY_CATEGORY;
+export const GET_LATEST_MOVIES_BY_CATEGORY = {
+  type: new GraphQLList(ShowType),
+  args: {
+    category: { type: GraphQLString },
+  },
+  resolve(parent: any, args: any) {
+    const { category } = args;
+    return Shows.find({
+      where: {
+        category: category,
+      },
+      order: {
+        id: "DESC",
+      },
+      take: 15,
+    });
+  },
+};
+
+// export default GET_LATEST_MOVIES_BY_CATEGORY;
