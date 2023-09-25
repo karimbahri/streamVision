@@ -2,7 +2,7 @@ import { GraphQLList, GraphQLString } from "graphql";
 import UserType from "../typedefs/user";
 import { Shows } from "../../entities";
 
-const GET_MOVIES = {
+const GET_MOVIES_BY_CATEGORY = {
   type: new GraphQLList(UserType),
   args: {
     category: { type: GraphQLString },
@@ -12,4 +12,4 @@ const GET_MOVIES = {
   },
 };
 
-export default GET_MOVIES;
+export default GET_MOVIES_BY_CATEGORY;
