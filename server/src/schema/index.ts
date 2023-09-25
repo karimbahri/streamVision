@@ -10,11 +10,13 @@ import {
 } from "./mutations/user";
 import GET_ALL_USERS from "./queries/user";
 import { DELETE_MOVIE, SAVE_MOVIES } from "./mutations/shows";
+import { GET_LATEST_MOVIES_BY_CATEGORY } from "./queries/shows";
 
 const rootQuery = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
     getAllUsers: GET_ALL_USERS,
+    getMoviesByCategory: GET_LATEST_MOVIES_BY_CATEGORY,
   },
 });
 
