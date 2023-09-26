@@ -9,3 +9,13 @@ export const GET_LATEST_MOVIES = gql`
     }
   }
 `;
+
+export const GET_LATEST_MOVIES_BY_CATEGORY = gql`
+  getLatestMoviesByCategory($category: String!) {
+    getLatestMoviesByCategory(category: $category) {
+      id
+      title
+      thumbnail
+    }
+  }
+`;
