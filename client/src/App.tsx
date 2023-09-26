@@ -20,6 +20,7 @@ import { useState } from "react";
 import ResetPassword from "./components/resetPassword";
 import CodeVerification from "./components/codeVerification";
 import MovieUploader from "./components/movieUploader";
+import HomePage from "./components/homepage";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => isLoggedInFx());
@@ -91,7 +92,7 @@ export default function App() {
               element={<SignUp isLoggedIn={isLoggedIn} />}
             />
             <Route path="/watch" element={<StreamPage />} />
-            <Route path="/*" element={<Movies />} />
+            <Route path="/*" element={<HomePage />} />
             <Route path="/reset-account" element={<Reset />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/code-verification" element={<CodeVerification />} />
