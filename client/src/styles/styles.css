@@ -286,6 +286,11 @@ MOVIES SLIDERS
   /* position: relative; */
 }
 
+.movies-sliders .movies-sliders__header {
+  color: white;
+  font-family: "Bahnschrift SemiBold";
+}
+
 .main__content .movies-sliders .sliders-box {
   /* display: flex; */
   width: 100vw;
