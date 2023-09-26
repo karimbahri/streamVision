@@ -2,7 +2,7 @@ import { GraphQLList, GraphQLString } from "graphql";
 import { Shows } from "../../entities";
 import ShowType from "../typedefs/shows";
 
-export const GET_LATEST_MOVIES = {
+export const GET_LATEST_ALL = {
   type: new GraphQLList(ShowType),
   resolve() {
     return Shows.find({
