@@ -11,8 +11,8 @@ export const GET_LATEST_ALL = gql`
 `;
 
 export const GET_LATEST_MOVIES_BY_CATEGORY = gql`
-  query getLatestMoviesByCategory($category: String!) {
-    getLatestMoviesByCategory(category: $category) {
+  query getLatestMoviesByCategory($category: String!, $size: Int!) {
+    getLatestMoviesByCategory(category: $category, size: $size) {
       id
       title
       thumbnail
