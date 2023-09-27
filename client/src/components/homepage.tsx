@@ -27,7 +27,24 @@ const HomePage = () => {
   return (
     <div className="homepage">
       {!isLoaded ? undefined : (
-        <MoviesSlider data={latestAll.data} section={"Trending"} />
+        <>
+          <MoviesSlider
+            data={latestAll.data.getLatestAll}
+            section={"Trending"}
+          />
+          <MoviesSlider
+            data={movies.data.getLatestMoviesByCategory}
+            section={"Movies"}
+          />
+          <MoviesSlider
+            data={tvShows.data.getLatestMoviesByCategory}
+            section={"Tv Show"}
+          />
+          <MoviesSlider
+            data={animes.data.getLatestMoviesByCategory}
+            section={"Animes"}
+          />
+        </>
       )}
     </div>
   );
