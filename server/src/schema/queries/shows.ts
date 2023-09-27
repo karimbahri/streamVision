@@ -1,4 +1,4 @@
-import { GraphQLList, GraphQLString } from "graphql";
+import { GraphQLInt, GraphQLList, GraphQLString } from "graphql";
 import { Shows } from "../../entities";
 import ShowType from "../typedefs/shows";
 
@@ -18,9 +18,10 @@ export const GET_LATEST_MOVIES_BY_CATEGORY = {
   type: new GraphQLList(ShowType),
   args: {
     category: { type: GraphQLString },
+    size: { type: GraphQLInt },
   },
   resolve(parent: any, args: any) {
-    const { category } = args;
+    const { category, size } = args;
     return Shows.find({
       where: {
         category: category,
@@ -28,9 +29,7 @@ export const GET_LATEST_MOVIES_BY_CATEGORY = {
       order: {
         id: "DESC",
       },
-      take: 15,
+      take: size,
     });
   },
 };
-
-// export default GET_LATEST_MOVIES_BY_CATEGORY;
