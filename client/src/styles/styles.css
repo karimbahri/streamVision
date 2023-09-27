@@ -277,9 +277,10 @@ MAIN
 MOVIES SLIDERS
 ===== */
 
-.main__content .movies-sliders {
+.movies-sliders {
   margin: auto;
   margin-top: 3rem;
+  margin-bottom: 12rem;
   height: 250px;
   width: 85%;
   /* transform: translateX(37px); */
@@ -289,9 +290,10 @@ MOVIES SLIDERS
 .movies-sliders .movies-sliders__header {
   color: white;
   font-family: "Bahnschrift SemiBold";
+  margin-top: 4.5rem;
 }
 
-.main__content .movies-sliders .sliders-box {
+.movies-sliders .sliders-box {
   /* display: flex; */
   width: 100vw;
   overflow: hidden;
@@ -318,12 +320,19 @@ MOVIES SLIDERS
 MOVIES GRID CONTAINER
 ===== */
 
-.main__content .movies-grid-container {
+.movies-grid-container {
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: minmax(300px, auto);
   /* margin-top: 1.5rem; */
   margin-top: 3rem;
+}
+
+.movies-__header {
+  color: white;
+  font-family: "Bahnschrift SemiBold";
+  margin-top: 4.5rem;
+  margin-left: 2.5rem;
 }
 
 .element {
@@ -896,6 +905,24 @@ input:-webkit-autofill:active {
   right: 7px;
 }
 
+@media (min-width: 332px) {
+  .movies-sliders {
+    margin-bottom: 15rem;
+  }
+}
+
+@media (min-width: 395px) {
+  .movies-sliders {
+    margin-bottom: 20rem;
+  }
+}
+
+@media (min-width: 480px) {
+  .movies-sliders {
+    margin-bottom: 10rem;
+  }
+}
+
 /* =====
 DESKTOP VIEW
 ===== */
@@ -969,6 +996,10 @@ DESKTOP VIEW
   MAIN 
   ===== */
 
+  .movies-sliders {
+    margin-bottom: 7rem;
+  }
+
   .main__content .movies-grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -988,6 +1019,10 @@ DESKTOP VIEW
   /* ===== 
   MAIN 
   ===== */
+
+  .movies-sliders {
+    margin-bottom: 10rem;
+  }
 
   .main__content .movies-grid-container {
     display: grid;
@@ -1070,6 +1105,10 @@ DESKTOP VIEW
   /* ===== 
   MAIN 
   ===== */
+
+  .movies-sliders {
+    margin-bottom: 13.5rem;
+  }
 
   .main__content .movies-grid-container {
     display: grid;
