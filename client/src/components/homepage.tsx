@@ -9,13 +9,13 @@ import { useEffect, useState } from "react";
 const HomePage = () => {
   const latestAll = useQuery(GET_LATEST_ALL);
   const movies = useQuery(GET_LATEST_MOVIES_BY_CATEGORY, {
-    variables: { category: "movie" },
+    variables: { category: "movie", size: 15 },
   });
   const tvShows = useQuery(GET_LATEST_MOVIES_BY_CATEGORY, {
-    variables: { category: "tv-serie" },
+    variables: { category: "tv-serie", size: 15 },
   });
   const animes = useQuery(GET_LATEST_MOVIES_BY_CATEGORY, {
-    variables: { category: "anime" },
+    variables: { category: "anime", size: 15 },
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
