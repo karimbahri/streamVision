@@ -45,6 +45,8 @@ export default function MoviesSlider(props: any) {
         ))}
       </Slider>
     </div>
-  ) : undefined;
+  ) : (
+    <></>
+  );
 }
 //
