@@ -36,23 +36,14 @@ export default function MoviesSlider(props: any) {
       },
     ],
   };
-
-  return (
+  return props.data.length ? (
     <div className={"movies-sliders"}>
       <h1 className={"movies-sliders__header"}>{props.section}</h1>
       <Slider {...settings}>
-        {props.data.getLatestAll.map((movie: any) => (
+        {props.data.map((movie: any) => (
           <Movie key={movie.id} />
         ))}
-        {/* <Movie />
-        <Movie />
-        <Movie />
-        <Movie />
-        <Movie />
-        <Movie />
-        <Movie />
-        <Movie /> */}
       </Slider>
     </div>
-  );
+  ) : undefined;
 }
