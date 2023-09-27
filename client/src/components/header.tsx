@@ -1,4 +1,5 @@
 import { Search } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -22,16 +23,16 @@ export default function Header() {
         </div>
         <ul className="header__list">
           <li className="header__item">
-            <a href="#">Movies</a>
+            <Link to="/movies">Movies</Link>
           </li>
           <li className="header__item">
-            <a href="#">Tv series</a>
+            <Link to="/series">Tv series</Link>
           </li>
           <li className="header__item">
-            <a href="#">Animes</a>
+            <Link to="/animes">Animes</Link>
           </li>
           <li className="header__item">
-            <a href="#">Trending</a>
+            <Link to="/">Trending</Link>
           </li>
         </ul>
       </div>
