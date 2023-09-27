@@ -97,6 +97,18 @@ export default function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/code-verification" element={<CodeVerification />} />
             <Route path="/upload" element={<MovieUploader />} />
+            <Route
+              path="/movies"
+              element={<Movies category={"movie"} section={"Movies"} />}
+            />
+            <Route
+              path="/animes"
+              element={<Movies category={"anime"} section={"Animes"} />}
+            />
+            <Route
+              path="/series"
+              element={<Movies category={"tv-serie"} section={"Tv Shows"} />}
+            />
           </Routes>
           {/* <Movies />
           <MoviesSlider /> */}
