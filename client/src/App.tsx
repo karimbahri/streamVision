@@ -29,23 +29,6 @@ export default function App() {
       <Header />
       <main className={"main"}>
         <header className="main__header">
-          {/* <button className="user-btn">
-            <i className="bi bi-person-circle"></i>
-            {!isLoggedIn ? (
-              <Link to={"/login"}>{"Login"}</Link>
-            ) : (
-              <Link
-                to={"/"}
-                onClick={() => {
-                  localStorage.token = undefined;
-                  setIsLoggedIn(false);
-                }}
-              >
-                {"Logout"}
-              </Link>
-            )}
-          </button> */}
-
           {!isLoggedIn ? (
             <Link className={"user-btn"} to={"/login"}>
               <PersonCircle className="icon" />
@@ -99,15 +82,21 @@ export default function App() {
             <Route path="/upload" element={<MovieUploader />} />
             <Route
               path="/movies"
-              element={<Movies category={"movie"} section={"Movies"} />}
+              element={
+                <Movies key={"1"} category={"movie"} section={"Movies"} />
+              }
             />
             <Route
               path="/animes"
-              element={<Movies category={"anime"} section={"Animes"} />}
+              element={
+                <Movies key={"2"} category={"anime"} section={"Animes"} />
+              }
             />
             <Route
               path="/series"
-              element={<Movies category={"tv-serie"} section={"Tv Shows"} />}
+              element={
+                <Movies key={"3"} category={"tv-serie"} section={"Tv Shows"} />
+              }
             />
           </Routes>
           {/* <Movies />
