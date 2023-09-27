@@ -11,7 +11,6 @@ export default function Movies(props: any) {
 
   useEffect(() => {
     if (data && data.getLatestMoviesByCategory.length) setIsLoaded(true);
-    console.log(data);
   }, [data]);
 
   return isLoaded ? (
@@ -21,14 +20,6 @@ export default function Movies(props: any) {
         {data.getLatestMoviesByCategory.map((movie: any) => (
           <Movie key={movie.id} />
         ))}
-        {/* <Movie />
-      <Movie />
-      <Movie />
-      <Movie />
-      <Movie />
-      <Movie />
-      <Movie />
-      <Movie /> */}
       </div>
     </>
   ) : (
