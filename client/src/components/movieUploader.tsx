@@ -2,7 +2,6 @@ import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import client from "../apollo-client";
-// import * as Icon from "react-bootstrap-icons";
 import { CloudArrowUpFill } from "react-bootstrap-icons";
 import Notification from "./notification";
 import Loader from "./loader";
