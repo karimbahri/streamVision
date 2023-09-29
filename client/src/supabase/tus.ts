@@ -20,22 +20,22 @@ export const uploadVideo = (
       metadata: {
         bucketName: bucketName,
         objectName: fileName,
-        contentType: "video/png",
+        contentType: "video/*",
         cacheControl: "3600",
       },
       chunkSize: 6 * 1024 * 1024, // NOTE: it must be set to 6MB (for now) do not change it
       onError: function (error) {
-        console.log("Failed because: " + error);
+        // console.log("Failed because: " + error);
         reject(error);
       },
       onProgress: function (bytesUploaded, bytesTotal) {
-        var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
+        var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(0);
         // console.log(bytesUploaded, bytesTotal, percentage + "%");
         setProgress(percentage);
       },
       onSuccess: function () {
         // console.log(upload)
-        console.log("Download from %s", upload.url);
+        // console.log("Download from %s", upload.url);
         resolve(this);
       },
     });
