@@ -9,6 +9,8 @@ import { isAdmin, setNotification } from "../utils";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { DELETE_MOVIE_MUTATION, SAVESHOW_MUTATION } from "../graphQl/mutations";
+// import * as tus from "tus-js-client";
+import { uploadVideo } from "../supabase/tus";
 
 function MovieSelector(props: any) {
   const [notificationClassValue, setNotificationClassValue] = useState("");
@@ -72,6 +74,7 @@ function MovieInfoSaver(props: any) {
   const [notificationClassValue, setNotificationClassValue] = useState("");
   const [notificationValue, setNotificationValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const setNotificationArgs = {
     notificationClassValue,
     setNotificationClassValue,
@@ -169,7 +172,8 @@ function MovieInfoSaver(props: any) {
               const thumbTitle = `${uuidv4()}.png`;
               setIsLoading(true);
               const results = await Promise.all([
-                supaBaseUpload("movies", videoTitle, props.video),
+                // supaBaseUpload("movies", videoTitle, props.video),
+                uploadVideo("movies", videoTitle, props.video, setProgress),
                 supaBaseUpload("thumbnails", thumbTitle, movieThumb),
                 saveShow({
                   variables: {
@@ -199,7 +203,12 @@ function MovieInfoSaver(props: any) {
           Save
         </a>
       </form>
-      {isLoading && <Loader />}
+      {isLoading && (
+        <>
+          <Loader />
+          <h3 className={"progress"}>Progress: {progress}%</h3>
+        </>
+      )}
       <Notification
         classValue={notificationClassValue}
         message={notificationValue}
