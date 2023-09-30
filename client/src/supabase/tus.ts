@@ -13,7 +13,7 @@ export const uploadVideo = (
       }/storage/v1/upload/resumable`,
       retryDelays: [0, 3000, 5000, 10000, 20000],
       headers: {
-        authorization: `Bearer ${import.meta.env.VITE_SUPABASE_JWT}`,
+        authorization: `Bearer ${import.meta.env.VITE_SUPABASE_KEY}`,
         "x-upsert": "true", // optionally set upsert to true to overwrite existing files
       },
       uploadDataDuringCreation: true,
