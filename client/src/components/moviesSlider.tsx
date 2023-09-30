@@ -41,7 +41,7 @@ export default function MoviesSlider(props: any) {
       <h1 className={"movies-sliders__header"}>{props.section}</h1>
       <Slider {...settings}>
         {props.data.map((movie: any) => (
-          <Movie key={movie.id} />
+          <Movie key={movie.id} thumb={movie.thumbnail} title={movie.title} />
         ))}
       </Slider>
     </div>
