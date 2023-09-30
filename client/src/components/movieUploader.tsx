@@ -191,6 +191,7 @@ function MovieInfoSaver(props: any) {
                 .catch((error) => {
                   deleteMovie({ variables: { content: videoTitle } });
                   setIsLoading(false);
+                  setProgress(0);
                   setNotificationArgs.notificationClassValue =
                     "notification-appear notification-failure";
                   setNotificationArgs.notificationValue = error.message;
