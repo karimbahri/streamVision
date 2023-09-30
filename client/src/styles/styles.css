@@ -339,6 +339,7 @@ MOVIES GRID CONTAINER
   position: relative;
   margin: 1.5rem;
   background-color: var(--bg-color-4);
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -376,6 +377,7 @@ MOVIES GRID CONTAINER
   width: 100%;
   aspect-ratio: 16 / 20;
   object-fit: cover;
+  border-radius: 5px;
 }
 
 .element .movie-btn {
