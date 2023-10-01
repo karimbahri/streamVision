@@ -455,7 +455,12 @@ MOVIES GRID CONTAINER
   bottom: 50%;
   background-color: #ffb62c;
   width: 80%;
-  padding: 0.8em;
+  color: white;
+  font-family: "Comic Sans MS";
+  font-size: 1.3rem;
+  text-decoration: none;
+  text-align: center;
+  padding: 0.6em;
   border: none;
   border-radius: 10px;
   transition: 0.2s;
@@ -465,13 +470,13 @@ MOVIES GRID CONTAINER
   z-index: 1;
 }
 
-.element .movie-btn > * {
+/* .element .movie-btn > * {
   color: white;
   font-family: "Comic Sans MS";
   font-size: 1.3rem;
   text-decoration: none;
-  /* padding: 0.5em; */
-}
+  /* padding: 0.5em; 
+} */
 
 .element:hover {
   transform: scale(1.04);
