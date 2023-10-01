@@ -10,9 +10,9 @@ export default function Movie(props: any) {
         className="movie-thumb"
       />
       <h1 className="movie-title">{props.title}</h1>
-      <button className="movie-btn">
-        <Link to={"/watch"}>Watch</Link>
-      </button>
+      <Link className="movie-btn" to={"/watch"}>
+        Watch
+      </Link>
     </div>
   );
 }
