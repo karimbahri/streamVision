@@ -19,7 +19,7 @@ export default function Movies(props: any) {
       <h1 className={"movies-__header"}>{props.section}</h1>
       <div className={"movies-grid-container"}>
         {data.getLatestMoviesByCategory.map((movie: any) => (
-          <Movie key={movie.id} />
+          <Movie key={movie.id} thumb={movie.thumbnail} title={movie.title} />
         ))}
       </div>
     </>
