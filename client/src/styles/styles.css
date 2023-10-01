@@ -470,14 +470,6 @@ MOVIES GRID CONTAINER
   z-index: 1;
 }
 
-/* .element .movie-btn > * {
-  color: white;
-  font-family: "Comic Sans MS";
-  font-size: 1.3rem;
-  text-decoration: none;
-  /* padding: 0.5em; 
-} */
-
 .element:hover {
   transform: scale(1.04);
 }
