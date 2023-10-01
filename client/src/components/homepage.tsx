@@ -5,6 +5,7 @@ import {
 } from "../graphQl/queries";
 import MoviesSlider from "./moviesSlider";
 import { useEffect, useState } from "react";
+import HomepageLoader from "./homepageLoader";
 
 const HomePage = () => {
   const latestAll = useQuery(GET_LATEST_ALL);
@@ -26,7 +27,9 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      {!isLoaded ? undefined : (
+      {!isLoaded ? (
+        <HomepageLoader />
+      ) : (
         <>
           <MoviesSlider
             data={latestAll.data.getLatestAll}
