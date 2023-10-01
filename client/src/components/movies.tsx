@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { GET_LATEST_MOVIES_BY_CATEGORY } from "../graphQl/queries";
 import { useEffect, useState } from "react";
 import Movie from "./movie";
+import HomepageLoader from "./homepageLoader";
 
 export default function Movies(props: any) {
   const { data } = useQuery(GET_LATEST_MOVIES_BY_CATEGORY, {
@@ -23,6 +24,6 @@ export default function Movies(props: any) {
       </div>
     </>
   ) : (
-    <></>
+    <HomepageLoader />
   );
 }
