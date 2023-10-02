@@ -35,7 +35,7 @@ export const GET_LATEST_MOVIES_BY_CATEGORY = {
 };
 
 export const GET_SPECIFIC_MOVIE = {
-  type: new GraphQLList(ShowType),
+  type: ShowType,
   args: {
     thumbnail: { type: GraphQLString },
   },
@@ -44,7 +44,7 @@ export const GET_SPECIFIC_MOVIE = {
 
     return Shows.findOne({
       where: {
-        thumbnail: thumbnail,
+        thumbnail: `${thumbnail}.png`,
       },
     });
   },
