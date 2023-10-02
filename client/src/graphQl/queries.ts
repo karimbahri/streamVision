@@ -19,3 +19,12 @@ export const GET_LATEST_MOVIES_BY_CATEGORY = gql`
     }
   }
 `;
+
+export const GET_SPECIFIC_MOVIE = gql`
+  query getSpecificMovie($thumbnail: String!) {
+    getSpecificMovie(thumbnail: $thumbnail) {
+      title
+      content
+    }
+  }
+`;
