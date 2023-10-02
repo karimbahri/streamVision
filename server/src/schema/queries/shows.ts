@@ -33,3 +33,19 @@ export const GET_LATEST_MOVIES_BY_CATEGORY = {
     });
   },
 };
+
+export const GET_SPECIFIC_MOVIE = {
+  type: new GraphQLList(ShowType),
+  args: {
+    thumbnail: { type: GraphQLString },
+  },
+  resolve(parent: any, args: any) {
+    const { thumbnail } = args;
+
+    return Shows.findOne({
+      where: {
+        thumbnail: thumbnail,
+      },
+    });
+  },
+};
