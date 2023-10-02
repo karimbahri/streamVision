@@ -5,14 +5,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function StreamPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoggedIn()) navigate("/login");
 
-    console.log(searchParams);
+    console.log(videoId);
   }, []);
 
   return (
