@@ -74,7 +74,7 @@ export default function App() {
               path="/register"
               element={<SignUp isLoggedIn={isLoggedIn} />}
             />
-            <Route path="/watch:param" element={<StreamPage />} />
+            <Route path="/watch" element={<StreamPage />} />
             <Route path="/*" element={<HomePage />} />
             <Route path="/reset-account" element={<Reset />} />
             <Route path="/reset-password" element={<ResetPassword />} />
