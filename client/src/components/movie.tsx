@@ -10,7 +10,7 @@ export default function Movie(props: any) {
         className="movie-thumb"
       />
       <h1 className="movie-title">{props.title}</h1>
-      <Link className="movie-btn" to={`/watch?v=${props.thumb}`}>
+      <Link className="movie-btn" to={`/watch?v=${props.thumb.slice(0, -4)}`}>
         Watch
       </Link>
     </div>
