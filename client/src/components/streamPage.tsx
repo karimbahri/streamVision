@@ -28,7 +28,13 @@ export default function StreamPage() {
   ) : (
     <div className="stream-page">
       <h1 className="stream-page__header">{data.getSpecificMovie.title}</h1>
-      <StreamPlayer />
+      <StreamPlayer
+        url={
+          import.meta.env.VITE_CDN_URL +
+          "/movies/h" +
+          data.getSpecificMovie.content
+        }
+      />
       <EpisodesList />
     </div>
   );
