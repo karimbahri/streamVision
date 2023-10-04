@@ -107,6 +107,7 @@ HEADER
   padding: 1em 1.3em;
   transform: translateX(-1.01rem);
   border-radius: 0 25px 25px 0;
+  cursor: pointer;
 }
 
 .header__content .header__list {
