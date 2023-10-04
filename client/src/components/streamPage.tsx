@@ -31,7 +31,7 @@ export default function StreamPage() {
       <StreamPlayer
         url={
           import.meta.env.VITE_CDN_URL +
-          "/movies/h" +
+          "/movies/" +
           data.getSpecificMovie.content
         }
       />
