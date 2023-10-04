@@ -14,14 +14,10 @@ export default function StreamPage() {
   const { data, loading, error } = useQuery(GET_SPECIFIC_MOVIE, {
     variables: { thumbnail: videoId },
   });
-  const [movie, setMovie] = useState<any>({});
 
   useEffect(() => {
     if (!isLoggedIn()) navigate("/login");
-
-    if (data) setMovie(data.getSpecificMovie);
-    console.log(data);
-  }, [data]);
+  }, []);
 
   return loading ? (
     <HomepageLoader />
