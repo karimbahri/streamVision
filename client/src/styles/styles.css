@@ -677,11 +677,6 @@ STREAM PAGE
   /* overflow: hidden; */
 }
 
-.stream-player .video-wrapper {
-  position: relative;
-  /* padding-top: 56.25%; */
-}
-
 .video-react {
   width: auto;
   height: 70%;
