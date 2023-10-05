@@ -1,5 +1,6 @@
 import { GraphQLInt, GraphQLList, GraphQLString } from "graphql";
 import { Shows } from "../../entities";
+import { getRepository, ILike } from "typeorm";
 import ShowType from "../typedefs/shows";
 
 export const GET_LATEST_ALL = {
@@ -45,6 +46,23 @@ export const GET_SPECIFIC_MOVIE = {
     return Shows.findOne({
       where: {
         thumbnail: `${thumbnail}.png`,
+      },
+    });
+  },
+};
+
+export const GET_SEARCHED_MOVIES = {
+  type: new GraphQLList(ShowType),
+  args: {
+    searchTerm: { type: GraphQLString },
+  },
+  resolve(parent: any, args: any) {
+    const { searchTerm } = args;
+    const showRepository = getRepository(Shows);
+
+    return showRepository.find({
+      where: {
+        title: ILike(`%${searchTerm}%`),
       },
     });
   },
