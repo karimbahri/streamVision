@@ -28,3 +28,12 @@ export const GET_SPECIFIC_MOVIE = gql`
     }
   }
 `;
+
+export const GET_SEARCHED_MOVIES = gql`
+  query getSearchedMovies($searchTerm: String!) {
+    getSpecificMovie(searchTerm: $searchTerm) {
+      title
+      thumbnail
+    }
+  }
+`;
