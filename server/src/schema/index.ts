@@ -13,6 +13,7 @@ import { DELETE_MOVIE, SAVE_MOVIES } from "./mutations/shows";
 import {
   GET_LATEST_ALL,
   GET_LATEST_MOVIES_BY_CATEGORY,
+  GET_SEARCHED_MOVIES,
   GET_SPECIFIC_MOVIE,
 } from "./queries/shows";
 
@@ -23,6 +24,7 @@ const rootQuery = new GraphQLObjectType({
     getLatestMoviesByCategory: GET_LATEST_MOVIES_BY_CATEGORY,
     getLatestAll: GET_LATEST_ALL,
     getSpecificMovie: GET_SPECIFIC_MOVIE,
+    getSearchedMovies: GET_SEARCHED_MOVIES,
   },
 });
 
