@@ -60,6 +60,8 @@ export const GET_SEARCHED_MOVIES = {
     const { searchTerm } = args;
     const showRepository = getRepository(Shows);
 
+    if (!searchTerm) return [];
+
     return showRepository.find({
       where: {
         title: ILike(`%${searchTerm}%`),
