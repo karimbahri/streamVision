@@ -110,6 +110,30 @@ HEADER
   cursor: pointer;
 }
 
+.search-list {
+  position: absolute;
+  background-color: var(--bg-color-3);
+  top: 90px;
+  width: 53%;
+  border-radius: 20px;
+  /* transform: translateX(-5px); */
+  z-index: 10;
+  font-size: 1.2rem;
+}
+
+.search-list li {
+  list-style: none;
+  text-align: left;
+  padding: 0.7rem;
+  padding-left: 0;
+}
+
+.search-list li * {
+  color: white;
+  font-family: "Bahnschrift SemiBold";
+  text-decoration: none;
+}
+
 .header__content .header__list {
   list-style: none;
   transform: translateX(-1rem);
@@ -1071,6 +1095,12 @@ DESKTOP VIEW
     width: 70%;
   }
 
+  .search-list {
+    top: 37px;
+    width: 36%;
+    /* transform: translateX(-5px); */
+  }
+
   .header .navbar__checkbox:checked ~ .header__content > .header__list {
     top: 60px;
     opacity: 1;
@@ -1101,6 +1131,13 @@ DESKTOP VIEW
 }
 
 @media (min-width: 750px) {
+  /* ====
+  HEADER
+  ====*/
+  .search-list {
+    width: 25%;
+  }
+
   /* ===== 
   MAIN 
   ===== */
@@ -1187,6 +1224,10 @@ DESKTOP VIEW
     display: none;
   }
 
+  .search-list {
+    width: 20%;
+  }
+
   /* ===== 
   MAIN 
   ===== */
@@ -1221,5 +1262,14 @@ DESKTOP VIEW
   .inputVideo-label .browse-btn {
     margin-left: 3rem;
     margin-right: 3rem;
+  }
+}
+
+@media (min-width: 1165px) {
+  /* ====
+  HEADER
+  ====*/
+  .search-list {
+    width: 15%;
   }
 }
