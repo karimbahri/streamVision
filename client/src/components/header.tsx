@@ -1,7 +1,16 @@
+import { useLazyQuery } from "@apollo/client";
+import { GET_SEARCHED_MOVIES } from "../graphQl/queries";
 import { Search } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Header() {
+  const [getSearchedMovies, { loading, data }] =
+    useLazyQuery(GET_SEARCHED_MOVIES);
+  const [searchedMovies, setSearchedMovie] = useState([]);
+
+  console.log(data?.getSearchedMovies);
+
   return (
     <header className="header">
       <h1 className="header__logo">StreamVision</h1>
@@ -19,6 +28,12 @@ export default function Header() {
             type="text"
             id="search__input"
             className="search__input"
+            onChange={(event) => {
+              getSearchedMovies({
+                variables: { searchTerm: event.target.value },
+              });
+              // if (data) setSearchedMovie(data.getSearchedMovies);
+            }}
           ></input>
         </div>
         <ul className="header__list">
