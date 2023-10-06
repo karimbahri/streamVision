@@ -35,6 +35,20 @@ export default function Header() {
               // if (data) setSearchedMovie(data.getSearchedMovies);
             }}
           ></input>
+          <ul className="search-list">
+            <li>
+              <Link to="bb">Breaking bad</Link>
+            </li>
+            <li>
+              <Link to="bb">Peaky blinders</Link>
+            </li>
+            <li>
+              <Link to="bb">Fargo</Link>
+            </li>
+            <li>
+              <Link to="bb">The end of the fu**g world</Link>
+            </li>
+          </ul>
         </div>
         <ul className="header__list">
           <li className="header__item">
