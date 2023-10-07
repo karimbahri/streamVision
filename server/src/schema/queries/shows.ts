@@ -55,9 +55,10 @@ export const GET_SEARCHED_MOVIES = {
   type: new GraphQLList(ShowType),
   args: {
     searchTerm: { type: GraphQLString },
+    size: { type: GraphQLInt },
   },
   resolve(parent: any, args: any) {
-    const { searchTerm } = args;
+    const { searchTerm, size } = args;
     const showRepository = getRepository(Shows);
 
     if (!searchTerm) return [];
@@ -66,6 +67,7 @@ export const GET_SEARCHED_MOVIES = {
       where: {
         title: ILike(`%${searchTerm}%`),
       },
+      take: size,
     });
   },
 };
