@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export default function Movie(props: any) {
-  console.log(import.meta.env.VITE_CDN_URL + "thumbnails/" + props.thumb);
   return (
     <div className="element">
       <img
