@@ -87,6 +87,8 @@ HEADER
 .header__content .header__search .search__input {
   background-color: var(--bg-color-3);
   caret-color: white;
+  color: white;
+  font-family: "Bahnschrift SemiBold";
   outline: none;
   padding: 1em;
   border-radius: 25px;
@@ -132,6 +134,11 @@ HEADER
   color: white;
   font-family: "Bahnschrift SemiBold";
   text-decoration: none;
+  transition: 0.3s ease-in;
+}
+
+.search-list li *:hover {
+  color: #009b4d;
 }
 
 .header__content .header__list {
