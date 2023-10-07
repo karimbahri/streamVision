@@ -30,8 +30,8 @@ export const GET_SPECIFIC_MOVIE = gql`
 `;
 
 export const GET_SEARCHED_MOVIES = gql`
-  query getSearchedMovies($searchTerm: String!) {
-    getSearchedMovies(searchTerm: $searchTerm) {
+  query getSearchedMovies($searchTerm: String!, $size: Int!) {
+    getSearchedMovies(searchTerm: $searchTerm, size: $size) {
       title
       thumbnail
     }
