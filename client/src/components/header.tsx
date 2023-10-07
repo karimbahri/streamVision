@@ -36,7 +36,7 @@ export default function Header() {
             }}
           ></input>
           <ul className="search-list">
-            <li>
+            {/* <li>
               <Link to="bb">Breaking bad</Link>
             </li>
             <li>
@@ -47,7 +47,16 @@ export default function Header() {
             </li>
             <li>
               <Link to="bb">The end of the fu**g world</Link>
-            </li>
+            </li> */}
+            {data
+              ? data?.getSearchedMovies.map((movie: any) => (
+                  <li>
+                    <Link to={`/watch?v=${movie.thumbnail.slice(0, -4)}`}>
+                      {movie.title}
+                    </Link>
+                  </li>
+                ))
+              : undefined}
           </ul>
         </div>
         <ul className="header__list">
