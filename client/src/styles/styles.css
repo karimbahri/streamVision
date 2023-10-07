@@ -134,7 +134,7 @@ HEADER
   color: white;
   font-family: "Bahnschrift SemiBold";
   text-decoration: none;
-  transition: 0.3s ease-in;
+  transition: 0.3s ease-out;
 }
 
 .search-list li *:hover {
