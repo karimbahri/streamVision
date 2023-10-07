@@ -30,7 +30,7 @@ export default function Header() {
             className="search__input"
             onChange={(event) => {
               getSearchedMovies({
-                variables: { searchTerm: event.target.value },
+                variables: { searchTerm: event.target.value, size: 5 },
               });
               // if (data) setSearchedMovie(data.getSearchedMovies);
             }}
