@@ -2,14 +2,19 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_SEARCHED_MOVIES } from "../graphQl/queries";
 import { Search } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Header() {
   const [getSearchedMovies, { loading, data }] =
     useLazyQuery(GET_SEARCHED_MOVIES);
   const [searchedMovies, setSearchedMovie] = useState([]);
+  const [searchListClassName, setSearchListClassName] = useState("hide");
 
-  console.log(data?.getSearchedMovies);
+  useEffect(() => {
+    if (data) setSearchedMovie(data.getSearchedMovies);
+    if (!searchedMovies) setSearchListClassName("hide");
+  }, [data]);
+  // console.log(data?.getSearchedMovies);
 
   return (
     <header className="header">
@@ -32,10 +37,17 @@ export default function Header() {
               getSearchedMovies({
                 variables: { searchTerm: event.target.value, size: 5 },
               });
+              setSearchListClassName("show");
               // if (data) setSearchedMovie(data.getSearchedMovies);
             }}
+            onBlur={() => {
+              setSearchListClassName("hide");
+              setTimeout(() => {
+                setSearchedMovie([]);
+              }, 300);
+            }}
           ></input>
-          <ul className="search-list">
+          <ul className={`search-list ${searchListClassName}`}>
             {/* <li>
               <Link to="bb">Breaking bad</Link>
             </li>
@@ -48,8 +60,8 @@ export default function Header() {
             <li>
               <Link to="bb">The end of the fu**g world</Link>
             </li> */}
-            {data
-              ? data?.getSearchedMovies.map((movie: any) => (
+            {searchedMovies
+              ? searchedMovies.map((movie: any) => (
                   <li>
                     <Link to={`/watch?v=${movie.thumbnail.slice(0, -4)}`}>
                       {movie.title}
