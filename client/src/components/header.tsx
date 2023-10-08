@@ -14,7 +14,6 @@ export default function Header() {
     if (data) setSearchedMovie(data.getSearchedMovies);
     if (!searchedMovies) setSearchListClassName("hide");
   }, [data]);
-  // console.log(data?.getSearchedMovies);
 
   return (
     <header className="header">
