@@ -1,19 +1,28 @@
 import { useLazyQuery } from "@apollo/client";
 import { GET_SEARCHED_MOVIES } from "../graphQl/queries";
 import { Search } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 
 export default function Header() {
   const [getSearchedMovies, { loading, data }] =
     useLazyQuery(GET_SEARCHED_MOVIES);
-  const [searchedMovies, setSearchedMovie] = useState([]);
-  const [searchListClassName, setSearchListClassName] = useState("hide");
+  const [searchListClassName, setSearchListClassName] = useState("");
+  const [isSearchInputFocus, setIsSearchInputFocus] = useState(false);
+  const inputSearchRef = useRef<HTMLInputElement>(null);
+
+  let searchedMovies: any = [];
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (data) setSearchedMovie(data.getSearchedMovies);
-    if (!searchedMovies) setSearchListClassName("hide");
-  }, [data]);
+    // if (data?.getSearchedMovies) setSearchedMovie(data.getSearchedMovies);
+    if (data) searchedMovies = data.getSearchedMovies;
+    console.log(searchedMovies);
+
+    if (!searchedMovies.length) setSearchListClassName("hide");
+    if (searchedMovies.length && isSearchInputFocus)
+      setSearchListClassName("show");
+  }, [data, searchedMovies]);
 
   return (
     <header className="header">
@@ -26,41 +35,39 @@ export default function Header() {
       <div className="header__content">
         <div className="header__search">
           {/* <i className="bi bi-search"></i> */}
-          <Search className={"bi bi-search"} />
+          <Search
+            className={"bi bi-search"}
+            onClick={() => {
+              if (inputSearchRef?.current?.value)
+                navigate(`search?q=${inputSearchRef.current?.value}`);
+            }}
+          />
           <input
             placeholder="Search"
             type="text"
             id="search__input"
             className="search__input"
+            ref={inputSearchRef}
             onChange={(event) => {
               getSearchedMovies({
                 variables: { searchTerm: event.target.value, size: 5 },
               });
               setSearchListClassName("show");
-              // if (data) setSearchedMovie(data.getSearchedMovies);
             }}
             onBlur={() => {
+              setIsSearchInputFocus(false);
               setSearchListClassName("hide");
               setTimeout(() => {
-                setSearchedMovie([]);
+                searchedMovies = [];
               }, 300);
+            }}
+            onFocus={() => {
+              setIsSearchInputFocus(true);
             }}
           ></input>
           <ul className={`search-list ${searchListClassName}`}>
-            {/* <li>
-              <Link to="bb">Breaking bad</Link>
-            </li>
-            <li>
-              <Link to="bb">Peaky blinders</Link>
-            </li>
-            <li>
-              <Link to="bb">Fargo</Link>
-            </li>
-            <li>
-              <Link to="bb">The end of the fu**g world</Link>
-            </li> */}
-            {searchedMovies
-              ? searchedMovies.map((movie: any) => (
+            {data?.getSearchedMovies
+              ? data.getSearchedMovies.map((movie: any) => (
                   <li>
                     <Link to={`/watch?v=${movie.thumbnail.slice(0, -4)}`}>
                       {movie.title}
