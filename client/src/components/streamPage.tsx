@@ -31,7 +31,10 @@ export default function StreamPage() {
           data.getSpecificMovie.content
         }
       />
-      <EpisodesList />
+      <EpisodesList
+        seasons={data.getSpecificMovie.seasons}
+        episodes={data.getSpecificMovie.episodes}
+      />
     </div>
   );
 }
