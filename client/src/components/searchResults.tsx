@@ -17,17 +17,13 @@ export default function SearchResults() {
     if (data && data.getSearchedMovies.length) setIsLoaded(true);
     else setIsLoaded(false);
     console.log(data);
-
-    return () => {
-      setIsLoaded(false);
-    };
-  });
+  }, [data, searchTerm]);
 
   return isLoaded ? (
     <>
       <h1 className={"movies-__header"}>Search results: {searchTerm}</h1>
       <div className={"movies-grid-container"}>
-        {data.getSearchedMovies.map((movie: any) => (
+        {data?.getSearchedMovies.map((movie: any) => (
           <Movie
             key={movie.thumbnail}
             thumb={movie.thumbnail}
