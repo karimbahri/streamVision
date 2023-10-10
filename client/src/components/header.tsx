@@ -15,9 +15,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (data?.getSearchedMovies) setSearchedMovie(data.getSearchedMovies);
     if (data) searchedMovies = data.getSearchedMovies;
-    console.log(searchedMovies);
 
     if (!searchedMovies.length) setSearchListClassName("hide");
     if (searchedMovies.length && isSearchInputFocus)
