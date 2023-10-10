@@ -25,6 +25,8 @@ export const GET_SPECIFIC_MOVIE = gql`
     getSpecificMovie(thumbnail: $thumbnail) {
       title
       content
+      episodes
+      seasons
     }
   }
 `;
