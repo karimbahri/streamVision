@@ -14,7 +14,7 @@ export default function SearchResults() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (data && data.getSearchedMovies.length) setIsLoaded(true);
+    if (data && data.getSearchedMovies) setIsLoaded(true);
     else setIsLoaded(false);
     console.log(data);
   }, [data, searchTerm]);
