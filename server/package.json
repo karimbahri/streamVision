@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./dist/index.ts",
     "dev": "nodemon ./src/index.ts",
-    "build": "npm install --force && tsc -p ."
+    "build": "tsc -p ."
   },
   "author": "",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-graphql": "^0.12.0",
-    "graphql": "^16.6.0",
+    "graphql": "^15.3.0",
     "jsonwebtoken": "^9.0.0",
     "nodemailer": "^6.9.4",
     "nodemon": "^2.0.22",
