@@ -1,0 +1,1 @@
+startCommand: node dist/index.js
