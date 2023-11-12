@@ -1,1 +1,1 @@
-startCommand: node dist/index.js
+startCommand = "node dist/index.js"
