@@ -133,11 +133,13 @@ export const UPDATE_USER_PASSWORD = {
       where: { email: email, code: code },
     });
     if (!verif_code) throw new Error("Authorization session expired !");
+    if (oldPassword != newPassword)
+      throw new Error("Password confirmation doesn't match with password !");
 
     const passwordMatch = await bcrypt.compare(oldPassword, user.password);
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
-    if (passwordMatch) {
+    if (!passwordMatch) {
       if (!checkValidPassword(newPassword))
         throw new Error(
           "Password must be at least 8 characters and contains uppercase, lowercase, digits and special characters !"
@@ -145,7 +147,7 @@ export const UPDATE_USER_PASSWORD = {
       await Users.update({ email }, { password: hashedNewPassword });
       await VerificationCode.delete({ code });
     } else {
-      throw new Error("Password doesn't match");
+      throw new Error("Please choose another password");
     }
   },
 };
