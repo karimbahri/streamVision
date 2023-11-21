@@ -16,7 +16,7 @@ export default function CodeVerification() {
   const [isReset, setIsReset] = useState(
     useSelector((state: { isReset: any }) => state.isReset)
   );
-  const [email, setEmail] = useState(
+  const [email] = useState(
     useSelector((state: { email: any }) => state.email)
   );
 
