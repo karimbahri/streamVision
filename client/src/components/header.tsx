@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
 export default function Header() {
-  const [getSearchedMovies, { loading, data }] =
+  const [getSearchedMovies, { data }] =
     useLazyQuery(GET_SEARCHED_MOVIES);
   const [searchListClassName, setSearchListClassName] = useState("");
   const [isSearchInputFocus, setIsSearchInputFocus] = useState(false);
