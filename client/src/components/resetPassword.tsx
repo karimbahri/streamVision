@@ -21,16 +21,16 @@ export default function ResetPassword() {
   const [notificationValue, setNotificationValue] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [redux_code, setRedux_code] = useState(
+  const [redux_code] = useState(
     useSelector((state: { code: any }) => state.code)
   );
-  const [email, setEmail] = useState(
+  const [email] = useState(
     useSelector((state: { email: any }) => state.email)
   );
 
-  const [timeoutId] = useState(
-    useSelector((state: { timeoutId: any }) => state.timeoutId)
-  );
+  // const [timeoutId] = useState(
+  //   useSelector((state: { timeoutId: any }) => state.timeoutId)
+  // );
 
   const setNotificationArgs = {
     notificationClassValue,
