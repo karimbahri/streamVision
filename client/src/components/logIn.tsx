@@ -23,7 +23,7 @@ export default function Login(props: any) {
     setNotificationValue,
   };
 
-  const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
+  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       console.log("data : ", data);
       localStorage.setItem("token", data.login);
