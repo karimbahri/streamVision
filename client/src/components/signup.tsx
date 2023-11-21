@@ -27,7 +27,7 @@ export default function SignUp(props: any) {
     setNotificationValue,
   };
 
-  const [createUser, { loading, error }] = useMutation(SIGNUP_MUTATION, {
+  const [createUser, { loading }] = useMutation(SIGNUP_MUTATION, {
     onCompleted: (data) => {
       console.log("data : ", data);
       client.resetStore();
