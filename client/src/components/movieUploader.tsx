@@ -96,7 +96,7 @@ function MovieInfoSaver(props: any) {
     },
   });
 
-  const [deleteMovie, { error }] = useMutation(DELETE_MOVIE_MUTATION, {
+  const [deleteMovie] = useMutation(DELETE_MOVIE_MUTATION, {
     onCompleted: (data) => {
       console.log("data : ", data);
       client.resetStore();
