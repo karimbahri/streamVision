@@ -81,7 +81,9 @@ export const LOGIN = {
   },
   async resolve(parent: any, args: any) {
     const { email, password } = args;
-    const user = await Users.findOne({ where: { email: email } });
+    const user = await Users.findOne({
+      where: [{ email: email }, { userName: email }],
+    });
 
     if (!user) {
       throw new Error("User doesn't exist !");
