@@ -1,0 +1,49 @@
+version: "3"
+services:
+  client:
+    build:
+      ./client
+      # context: .
+      # dockerfile: Dockerfile.client
+    container_name: streamvision_client
+    ports:
+      - 5173:5173
+    volumes:
+      - ./client:/app
+      # - /absolute_path/streamVision/client/node_modules
+    environment:
+      - VITE_SUPABASE_KEY=supabasekey_here
+      - VITE_SUPABASE_URL=supabaseurl_here
+      - VITE_CDN_URL=cdnurl_here
+  server:
+    build:
+      ./server
+      # context: .
+      # dockerfile: Dockerfile.server
+    container_name: streamvision_server
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://root:password@db:5432/streamvision_db
+    volumes:
+      - ./server:/app
+      # - /absolute_path/streamVision/server/node_modules
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=streamvision_db
+
+      # - MAILER_EMAIL=put_your_mailer_here
+      # - MAILER_PASSWORD=put_your_mailer_password_here
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
+    driver: local
