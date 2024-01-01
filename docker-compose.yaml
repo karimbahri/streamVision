@@ -25,8 +25,8 @@ services:
       - 8080:8080
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgres://root:password@db:5432/streamvision_db
+    # environment:
+      #  - DATABASE_URL=postgres://root:password@db:5432/streamvision_db
     volumes:
       - ./server:/app
       # - /absolute_path/streamVision/server/node_modules
