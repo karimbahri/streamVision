@@ -6,8 +6,8 @@ export default async function connectToDB() {
     type: "postgres",
     database: "streamvision_db",
     host: "localhost",
-    /*url: "postgres://root:password@db:5432/streamvision_db",*/
-    url: process.env.DATABASE_URL,
+    url: "postgres://root:password@db:5432/streamvision_db",
+    /*url: process.env.DATABASE_URL,*/
     port: 5432,
     username: "root",
     password: "password",
