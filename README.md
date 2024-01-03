@@ -40,7 +40,7 @@ Before you begin, ensure you have the following prerequisites installed on your 
 - [PostgreSQL](https://www.postgresql.org/)
 - [Supabase](https://supabase.io/) account for user authentication and data storage
 
-In this project, i opted for a hosted managed PostgreSQL service [ElephantSQL](https://www.elephantsql.com/) for instance.
+You can avoid installing nodejs and postgres in your system if you already have docker installed.
 
 ### Installation
 
