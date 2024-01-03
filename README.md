@@ -47,7 +47,7 @@ You can avoid installing nodejs and postgres in your system if you already have 
 1. Clone the StreamVision repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/strreamvision.git
+   git clone https://github.com/geek1050/streamvision.git
 
 2. Docker Setup:
 
@@ -92,3 +92,24 @@ You can avoid installing nodejs and postgres in your system if you already have 
            isAdmin
            }
         }
+
+### Contributing
+
+We welcome contributions from the community. If you would like to contribute to StrreamVision, please follow these steps:
+
+  1. Fork the repository on GitHub.
+  2. Clone your fork locally and create a new branch for your feature or bug fix:
+
+     ```bash
+       git checkout -b feature/your-feature-name
+  3. Make your changes and ensure they are well-documented.
+  4. Push your changes to your fork on GitHub:
+
+     ```bash
+       git push origin feature/your-feature-name
+  6. Create a pull request on the main StreamVision repository with a clear description of your changes.
+
+### License
+
+This project is licensed under the MIT [License](https://github.com/GEEK1050/streamVision/blob/master/LICENSE) - see the LICENSE file for details.
+Thank you for using StreamVision, and we hope you enjoy streaming your favorite movies and TV shows! If you encounter any issues or have suggestions, please feel free to open an issue or contribute to the project.
