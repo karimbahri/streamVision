@@ -47,7 +47,7 @@ You can avoid installing nodejs and postgres in your system if you already have 
 1. Clone the StreamVision repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/streamvision.git
+   git clone https://github.com/geek1050/streamvision.git
 
 2. Docker Setup:
 
