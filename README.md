@@ -90,5 +90,5 @@ In this project, i opted for a hosted managed PostgreSQL service [ElephantSQL](h
            userName,
            email,
            isAdmin
-       }
+           }
       }
