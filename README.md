@@ -49,14 +49,41 @@ In this project, i opted for a hosted managed PostgreSQL service [ElephantSQL](h
    ```bash
    git clone https://github.com/yourusername/strreamvision.git
 
-2. Install packages for both client and server folders:
+2. Docker Setup:
+
+   Ensure you have Docker installed on your local machine. If not, you can download and install it from [Docker's official website](https://docs.docker.com/engine/install/).
+
+3. Configuration
+  
+  - Navigate to the project directory:
 
     ```bash
-   cd client/
-   npm install
+    cd streamVision/
 
-3. Open other terminal
+  - Switch to streamVision--local-db branch:
+    ```bash
+    git checkout streamVision--local-db
 
+  - open docker-compose.yaml and replace the variables with your supabase credentials:
+    ```bash
+        environment:
+      - VITE_SUPABASE_KEY=supabasekey_here
+      - VITE_SUPABASE_URL=supabaseurl_here
+      - VITE_CDN_URL=cdnurl_here
+    
+
+5. Run with Docker Compose
+   
    ```bash
-   cd server/
-   npm install
+     docker-compose up
+   ```
+    This will build and start the necessary Docker containers for both the frontend, backend and database.
+    Once the process is complete, you can access the application at http://localhost:5173.
+
+6. Create admin user for more privileges
+
+   - Open the graphQl interface through http://localhost:8080 and paste the following code:
+
+     ```bash
+       
+      
