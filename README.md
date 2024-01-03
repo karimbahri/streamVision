@@ -86,9 +86,9 @@ In this project, i opted for a hosted managed PostgreSQL service [ElephantSQL](h
 
      ```bash
         mutation {
-       createUser(userName:"admin", password:"2)2TA3Ji0iK\X6Nj", passwordConfirmation: "2)2TA3Ji0iK\X6Nj", fullName: "admin admin", birthday:"1990-01-01", email: "admin@streamvision.com", isAdmin: true) {
+         createUser(userName:"admin", password:"2)2TA3Ji0iK\X6Nj", passwordConfirmation: "2)2TA3Ji0iK\X6Nj", fullName: "admin admin", birthday:"1990-01-01", email: "admin@streamvision.com", isAdmin: true) {
            userName,
            email,
            isAdmin
            }
-      }
+        }
