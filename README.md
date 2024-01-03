@@ -82,7 +82,7 @@ In this project, i opted for a hosted managed PostgreSQL service [ElephantSQL](h
 
 6. Create admin user for more privileges
 
-   - Open the graphQl interface through http://localhost:8080 and paste the following code:
+   - Open the graphQl interface through http://localhost:8080/graphql and paste the following code:
 
      ```bash
         mutation {
