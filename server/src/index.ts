@@ -28,6 +28,11 @@ import compression from "compression";
     })
   );
 
+  app.route('/health')
+  .get((req, res) => res.sendStatus(200))
+  .head((req, res) => res.sendStatus(200));
+
+
   const port = process.env.PORT || 8080;
   app.listen(port, () => {
     console.log("server running on port " + port);
